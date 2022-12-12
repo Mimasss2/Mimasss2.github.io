@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>git cheatsheet</title>
+    <link href="/2022/12/09/git_cheatsheet/"/>
+    <url>/2022/12/09/git_cheatsheet/</url>
+    
+    <content type="html"><![CDATA[<p>A git command cheatsheet.</p><h4 id="clone">1 clone</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cli">git clone &lt;url&gt; <br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>Cheatsheet</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>git</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>my new post</title>
     <link href="/2022/12/09/my-new-post/"/>
     <url>/2022/12/09/my-new-post/</url>
