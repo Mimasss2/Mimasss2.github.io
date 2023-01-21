@@ -16,16 +16,16 @@
   <meta name="author" content="Mimas">
   <meta name="keywords" content="Mimas, hexo">
   
-    <meta name="description" content="A git command cheatsheet. 1 clone 1git clone &lt;url&gt;">
+    <meta name="description" content="A git command cheatsheet. 1 create repo 1git init 初始化当前目录为git仓库 12git clone &lt;url&gt; git clone &lt;url&gt; &lt;dir&gt; # 将仓库克隆到指定的目录 从url克隆仓库 2 modify and commit 12git add &lt;filename&gt; #">
 <meta property="og:type" content="article">
 <meta property="og:title" content="git cheatsheet">
 <meta property="og:url" content="https://mimasss2.github.io/2022/12/09/git_cheatsheet/index.html">
 <meta property="og:site_name" content="Mimas&#39;s Blog">
-<meta property="og:description" content="A git command cheatsheet. 1 clone 1git clone &lt;url&gt;">
+<meta property="og:description" content="A git command cheatsheet. 1 create repo 1git init 初始化当前目录为git仓库 12git clone &lt;url&gt; git clone &lt;url&gt; &lt;dir&gt; # 将仓库克隆到指定的目录 从url克隆仓库 2 modify and commit 12git add &lt;filename&gt; #">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://www.pixelninja.me/wp-content/uploads/2016/05/git-logo.jpg">
 <meta property="article:published_time" content="2022-12-09T12:20:14.000Z">
-<meta property="article:modified_time" content="2023-01-21T05:02:14.085Z">
+<meta property="article:modified_time" content="2023-01-21T08:16:05.234Z">
 <meta property="article:author" content="Mimas">
 <meta property="article:tag" content="git">
 <meta name="twitter:card" content="summary_large_image">
@@ -225,7 +225,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          48 字
+          302 字
         
       </span>
     
@@ -236,7 +236,7 @@
         
         
         
-          1 分钟
+          3 分钟
         
       </span>
     
@@ -280,8 +280,16 @@
               <div class="markdown-body">
                 
                 <p>A git command cheatsheet.</p>
-<h4 id="clone">1 clone</h4>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cli">git clone &lt;url&gt; <br></code></pre></td></tr></table></figure>
+<h4 id="create-repo">1 create repo</h4>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cli">git init<br></code></pre></td></tr></table></figure>
+<p>初始化当前目录为git仓库</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs cli">git clone &lt;url&gt; <br>git clone &lt;url&gt; &lt;dir&gt; # 将仓库克隆到指定的目录<br></code></pre></td></tr></table></figure>
+<p>从<code>url</code>克隆仓库</p>
+<h4 id="modify-and-commit">2 modify and commit</h4>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs cli">git add &lt;filename&gt; # 添加名为filename的文件的变化<br>git add . # 添加当前目录下及其子目录下的所有文件的变化<br></code></pre></td></tr></table></figure>
+<p>添加文件到暂存区</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cli">git commit -m &lt;version comment&gt; # 将当前版本提交，并添加注释`&lt;version comment&gt;`<br></code></pre></td></tr></table></figure>
+<p>提交暂存区到仓库。</p>
 
                 
               </div>
