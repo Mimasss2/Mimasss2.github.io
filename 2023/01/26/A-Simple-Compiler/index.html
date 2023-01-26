@@ -1,0 +1,748 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/avatar.png">
+  <link rel="icon" href="/img/avatar.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Mimas">
+  <meta name="keywords" content="Mimas, hexo">
+  
+    <meta name="description" content="一个 Java 实现的 TXT 语言编译器, 目标平台为 RISC-V 32 (指令集 RV32M)。编译器大致分为词法分析、语法分析、语义分析及中间代码生成、目标代码生成四个部分。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="A Simple Compiler">
+<meta property="og:url" content="https://mimasss2.github.io/2023/01/26/A-Simple-Compiler/index.html">
+<meta property="og:site_name" content="Mimas&#39;s Blog">
+<meta property="og:description" content="一个 Java 实现的 TXT 语言编译器, 目标平台为 RISC-V 32 (指令集 RV32M)。编译器大致分为词法分析、语法分析、语义分析及中间代码生成、目标代码生成四个部分。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://mimasss2.github.io/img/A-Simple-Compiler/banner-Compiler_Shematic.png">
+<meta property="article:published_time" content="2023-01-26T01:32:09.000Z">
+<meta property="article:modified_time" content="2023-01-26T01:32:09.000Z">
+<meta property="article:author" content="Mimas">
+<meta property="article:tag" content="Compiler">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://mimasss2.github.io/img/A-Simple-Compiler/banner-Compiler_Shematic.png">
+  
+  
+  
+  <title>A Simple Compiler - Mimas&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"mimasss2.github.io","root":"/","version":"1.9.3","typing":{"enable":false,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Mimas</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/A-Simple-Compiler/banner-Compiler_Shematic.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle">A Simple Compiler</span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-01-26 09:32" pubdate>
+          2023年1月26日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          3k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          25 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">A Simple Compiler</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>一个 Java 实现的 TXT 语言编译器, 目标平台为 RISC-V 32 (指令集 RV32M)。编译器大致分为词法分析、语法分析、语义分析及中间代码生成、目标代码生成四个部分。</p>
+<span id="more"></span>
+<h3 id="源语言的示例代码">源语言的示例代码</h3>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs C"><span class="hljs-type">int</span> result;<br><span class="hljs-type">int</span> a;<br><span class="hljs-type">int</span> b;<br><span class="hljs-type">int</span> c;<br>a = <span class="hljs-number">8</span>;<br>b = <span class="hljs-number">5</span>;<br>c = <span class="hljs-number">3</span> - a;<br>result = a * b - ( <span class="hljs-number">3</span> + b ) * ( c - a );<br><span class="hljs-keyword">return</span> result;<br></code></pre></td></tr></table></figure>
+<h3 id="词法分析">词法分析</h3>
+<h4 id="编码表">编码表</h4>
+<table>
+<thead>
+<tr class="header">
+<th>类别</th>
+<th>正则表达式</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>return</td>
+<td>return</td>
+</tr>
+<tr class="even">
+<td>=</td>
+<td>=</td>
+</tr>
+<tr class="odd">
+<td>,</td>
+<td>,</td>
+</tr>
+<tr class="even">
+<td>Semicolon</td>
+<td>;</td>
+</tr>
+<tr class="odd">
+<td>+</td>
+<td>+</td>
+</tr>
+<tr class="even">
+<td>-</td>
+<td>-</td>
+</tr>
+<tr class="odd">
+<td>*</td>
+<td>*</td>
+</tr>
+<tr class="even">
+<td>/</td>
+<td>/</td>
+</tr>
+<tr class="odd">
+<td>(</td>
+<td>(</td>
+</tr>
+<tr class="even">
+<td>)</td>
+<td>)</td>
+</tr>
+<tr class="odd">
+<td>id</td>
+<td>[a-zA-Z_][a-zA-Z]*</td>
+</tr>
+<tr class="even">
+<td>IntConst</td>
+<td>[0-9]+</td>
+</tr>
+</tbody>
+</table>
+<h4 id="正则文法">正则文法</h4>
+<p><span class="math inline">\(G=(V,T,P,S)\)</span>，其中<span class="math inline">\(V=\{S, A, B, C, 0,1,2,…,9, char\}\)</span>,<span class="math inline">\(T=\{任意符号\}\)</span>，<span class="math inline">\(P\)</span>定义如下</p>
+<p>约定： <span class="math inline">\([s-t]\)</span>表示从s到t的所有ASCII字符中的一个</p>
+<p>标识符：<span class="math inline">\(S \rightarrow [a-z] A,\)</span> <span class="math inline">\(A \rightarrow [a-z] A | [0-9] A | ϵ\)</span></p>
+<p>整常数：<span class="math inline">\(S \rightarrow [1-9] B,\)</span> <span class="math inline">\(B \rightarrow [0-9] B | ϵ\)</span></p>
+<p>运算符：<span class="math inline">\(S \rightarrow C,\)</span> <span class="math inline">\(C \rightarrow = | * | + | - | /\)</span></p>
+<p>分隔符：<span class="math inline">\(S \rightarrow D, D \rightarrow ; | ( | ) | ,\)</span></p>
+<h4 id="状态转换图">状态转换图</h4>
+<figure>
+<img src="/img/A-Simple-Compiler/状态转换图.png" srcset="/img/loading.gif" lazyload alt="状态转换图" /><figcaption aria-hidden="true">状态转换图</figcaption>
+</figure>
+<h4 id="流程">流程</h4>
+<p>使用列表存储每个识别出的语法单元，读入输入代码，从前往后逐个读取字符，若遇到空格等其他空白字符跳过，否则，按照状态转换图识别语法单元，将其加入token列表中。若此语法单元为单词，且不是标识符，且不在符号表中，则其为新识别出的变量，将其添加到符号表中。</p>
+<h3 id="语法分析">语法分析</h3>
+<h4 id="状态栈和符号栈的数据结构">状态栈和符号栈的数据结构</h4>
+<p>使用Stack类作为状态栈和符号栈的数据结构，状态栈的元素的基类为Status类，符号栈的基类为Token类（后续发现实际分析过程中不需要用到符号栈）。通过peek()函数获取栈顶元素，通过push()函数向栈中压入元素，通过pop()函数弹出栈顶元素，通过empty()函数判断栈是否为空。</p>
+<h4 id="流程-1">流程</h4>
+<ol type="1">
+<li>向状态栈中压入初始状态，向符号栈中压入符号“$”。</li>
+<li>依次遍历输入串中的字符，根据当前状态栈栈顶的状态，判断此时应执行的Action。</li>
+<li>若执行的动作为移进，则根据LR1分析表获取要转移到的状态（程序中存储在action对应的Status对象中），将状态压入状态栈，将字符压入符号栈,并调用移入时对应的观察者的函数（callWhenInShift函数）,通知观察者当前读到的字符和要转移到的状态。</li>
+<li>若执行的动作为规约，则根据LR1分析表获取要规约的产生式（程序中存储在action对象的production属性中），调用规约时对应的观察者的函数（callWhenInReduce函数），通知观察者当前读到的字符和要用于规约的产生式，ProductionCollector观察者会将所有规约的产生式依次存储在列表中；获取产生式的头和体，将产生式的体对应的符号数从状态栈和符号栈中弹出，并将产生式的头压入符号栈。根据当前状态和状态站顶部状态查找LR1表，判断此时需要压入状态栈顶部的状态，并将其压入。</li>
+<li>若执行的动作为接受，则调用处于接受状态时对应的观察者的函数（callWhenInAccept）通知各个观察者，语法分析结束。</li>
+<li>重复执行2-5步，直到读完代码中的所有字符，或状态栈为空，或产生错误。</li>
+</ol>
+<h3 id="语义分析和中间代码生成">语义分析和中间代码生成</h3>
+<h4 id="翻译方案">翻译方案</h4>
+<p><span class="math display">\[
+ S \rightarrow D \  id\; \{ id.type = D.type \} 
+\]</span></p>
+<p><span class="math display">\[ 
+D \rightarrow int \; \{ int.type = INT, D.type = int.type \} 
+\]</span></p>
+<p>其余产生式规约式不执行任何动作</p>
+<h4 id="使用的数据结构">使用的数据结构</h4>
+<p><strong>语义分析：</strong>使用基类位SourceCodeType的栈（Stack）作为类型栈typeStack的数据结构，存储当前符号栈内对应符号的类型（type）；使用基类为Token的栈（Stack）作为符号栈tokenStack的数据结构，存储移进的单词（token）</p>
+<p><strong>中间代码生成：</strong>使用基类为Instruction的列表(List)instructions作为中间代码存储的数据结构，依次存储生成的中间代码，使用基类为IRValue的栈（Stack）作为符号栈irValueStack的数据结构，存储符号栈对应的ir表达式的值。</p>
+<h4 id="流程-2">流程</h4>
+<ol type="1">
+<li>当动作为接受时，不执行任何操作。</li>
+<li>当动作为移进时，将对应的符号压入符号栈。如果此符号为关键字int，则将INT压入类型栈，否则将null压入类型栈。</li>
+<li>当动作为规约时，首先判断要执行规约的产生式编号，若编号为4，则跳到第4步，若编号为5，则跳到第5步，否则，调到第6步.</li>
+<li>此时待规约的产生式为 <span class="math inline">\(S \rightarrow D \ id\;\)</span>。分别弹出并获取符号栈和类型栈顶端的两个元素，并设置为符号栈第一个元素（id）在符号表中的类型为类型栈从上往下第二个元素的类型（D对应的类型）。并向符号栈和类型栈中压入null（对应左部的S）。</li>
+<li>此时待规约的产生式为 $D int ; $ 弹出符号栈和类型栈栈顶的元素，将类型栈栈顶元素的类型作为左部符号的类型，再压入符号栈，向符号栈中压入null(对应左部的D)。</li>
+<li>此时待规约的产生式没有特殊的翻译动作，只需从符号栈和类型栈中弹出与产生式右部元素个数一致的元素，并压入null作为左部对应的符号/类型。</li>
+</ol>
+<h3 id="目标代码生成">目标代码生成</h3>
+<h4 id="对中间代码进行预处理">对中间代码进行预处理</h4>
+<ol type="1">
+<li>将操作两个立即数的 BinaryOp 直接进行求值得到结果, 然后替换成 MOV 指令。</li>
+<li>将操作一个立即数的指令 (除了乘法和左立即数减法) 进行调整, 使之满足 a := b op imm 的格式。</li>
+<li>将操作一个立即数的乘法和左立即数减法调整, 前插一条 MOV a, imm, 用 a 替换原立即数, 将指令调整为无立即数指令.</li>
+<li>舍弃Ret指令之后的所有指令</li>
+</ol>
+<h4 id="识别各变量最后一次使用的位置">识别各变量最后一次使用的位置</h4>
+<p>从后往前遍历预处理后的中间代码序列。用列表存储当前已经遍历到过的变量。每处理一条指令，分别判断它的两个原操作数中是否为立即数，若不是，再查看此变量是否被遍历到过。若此变量从未被遍历到过，说明此变量最后一次出现的位置便为这条指令，将此信息存入列表中保存。</p>
+<p>在遍历过程中，若变量出现在指令的目标操作数位置，且不出现在源操作数中，说明此指令前此变量的值与后续执行过程无关，将此变量从存储但钱已经遍历到过的变量列表中删去。</p>
+<h4 id="将中间代码转化为目标代码">将中间代码转化为目标代码</h4>
+<p>创建AsmInstruction类，表示riscv形式的汇编代码类，创建AsmInstructionKind枚举类，表示riscv代码的各种类型。</p>
+<p>创建RegisterAssigner类，用于分配和回收空闲的寄存器。其中，通过列表维护空闲寄存器，利用双射Map维护变量和已利用的寄存器之间的双射关系。当请求分配寄存器时，从空闲寄存器列表随机分配一个寄存器，并将其添加到双射Map中。当回收某一寄存器时，将其从双射Map中删除，并将相应寄存器重新存放回空闲寄存器列表。 遍历处理后的中间代码，提取每条指令的左右操作数，将其转化为相应的AsmInstruction对象，并存放到列表中。</p>
+<p>根据维护的变量最后一次出现的位置信息，若当前指令为变量最后一次出现的指令，则将相应变量对应的寄存器释放。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Projects/" class="category-chain-item">Projects</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Compiler/">#Compiler</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>A Simple Compiler</div>
+      <div>https://mimasss2.github.io/2023/01/26/A-Simple-Compiler/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Mimas</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年1月26日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/12/09/git_cheatsheet/" title="git cheatsheet">
+                        <span class="hidden-mobile">git cheatsheet</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
