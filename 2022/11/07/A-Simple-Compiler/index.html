@@ -221,7 +221,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          3k 字
+          3.1k 字
         
       </span>
     
@@ -232,7 +232,7 @@
         
         
         
-          25 分钟
+          26 分钟
         
       </span>
     
@@ -348,6 +348,7 @@
 <p>运算符：<span class="math inline">\(S \rightarrow C,\)</span> <span class="math inline">\(C \rightarrow = | * | + | - | /\)</span></p>
 <p>分隔符：<span class="math inline">\(S \rightarrow D,\)</span> <span class="math inline">\(D \rightarrow ; | ( | ) | ,\)</span></p>
 <h3 id="状态转换图">状态转换图</h3>
+<p>根据识别的编码不同，将状态机划分为不同的状态，共计14个状态。在每识别到终止状态时，调用相关的函数，将语法单元添加到维护的表格中，并重新回到起始状态。状态机DFA对应的状态转换图如下图所示。</p>
 <figure>
 <img src="/img/A-Simple-Compiler/状态转换图.png" srcset="/img/loading.gif" lazyload alt="状态转换图" /><figcaption aria-hidden="true">状态转换图</figcaption>
 </figure>

@@ -83,6 +83,20 @@
 
   
   <url>
+    <loc>https://mimas.top/tags/Compiler/</loc>
+    <lastmod>2023-01-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://mimas.top/tags/OS/</loc>
+    <lastmod>2023-01-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://mimas.top/tags/NLP/</loc>
     <lastmod>2023-01-27</lastmod>
     <changefreq>weekly</changefreq>
@@ -97,21 +111,7 @@
   </url>
   
   <url>
-    <loc>https://mimas.top/tags/Compiler/</loc>
-    <lastmod>2023-01-27</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://mimas.top/tags/vim/</loc>
-    <lastmod>2023-01-27</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://mimas.top/tags/OS/</loc>
     <lastmod>2023-01-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -127,6 +127,13 @@
 
   
   <url>
+    <loc>https://mimas.top/categories/Projects/</loc>
+    <lastmod>2023-01-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://mimas.top/categories/Machine-Learning/</loc>
     <lastmod>2023-01-27</lastmod>
     <changefreq>weekly</changefreq>
@@ -135,13 +142,6 @@
   
   <url>
     <loc>https://mimas.top/categories/Cheatsheet/</loc>
-    <lastmod>2023-01-27</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://mimas.top/categories/Projects/</loc>
     <lastmod>2023-01-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
