@@ -221,7 +221,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          3.7k 字
+          3.9k 字
         
       </span>
     
@@ -232,7 +232,7 @@
         
         
         
-          31 分钟
+          33 分钟
         
       </span>
     
@@ -307,12 +307,14 @@
 <p>理论部分，首先阅读《计算机组成与设计》学习设计相关的理论知识，之后跟着雷思磊的《自己动手写cpu》实现一个支持基本的mips指令的cpu。我一开始把书上写的都实现了一遍，之后再看着官方要求的指令把不相关的删掉了，实际上可以只实现需要的部分。</p>
 <p>具体针对比赛所需，我阅读了龙芯官方发的前几届参赛选手的经验指南，但很多写得很长，讲了很多专业术语，最开始看的时候晕头转向的。后来还是先根据官方的技术指南，先明确需求，需要实现什么，再针对性得根据这些看还需要实现什么，在哪些部分可以提高性能。</p>
 <h3 id="系统总体结构">系统总体结构</h3>
+<p>微系统由cpu核心，SRAM控制器，UART控制器三大部分组成，如下图所示。SRAM内存作为存储元件，存储指令和数据，并通过SRAM控制器的接口与cpu核心交换数据。UART串口作为异步通信接口，是CPU与电脑进行通信的控制器/桥梁，cpu核心通过内置的UART控制器实现异步通信。</p>
 <figure>
 <img src="\img\龙芯杯参赛总结\cpu整体架构.png" srcset="/img/loading.gif" lazyload style="zoom:50%;" />
 <figcaption aria-hidden="true">
 cpu总体架构
 </figcaption>
 </figure>
+<p>cpu核心采用顺序单发射五级流水线，各流水线模块关系如下图所示。五个模块分为取指、译码、运算、访存、回写。其中取指和访存阶段都由可能访问SRAM存储器。另设控制模块，在发生数据冲突时，使流水线停顿，避免结果异常。</p>
 <figure>
 <img src="\img\龙芯杯参赛总结\cpu核心架构.png" srcset="/img/loading.gif" lazyload style="zoom:75%;" />
 <figcaption aria-hidden="true">
