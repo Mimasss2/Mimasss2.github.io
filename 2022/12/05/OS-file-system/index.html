@@ -1,0 +1,789 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/avatar.png">
+  <link rel="icon" href="/img/avatar.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Mimas">
+  <meta name="keywords" content="Mimas, hexo">
+  
+    <meta name="description" content="此文件系统是基于FUSE架构的EXT2文件系统，可在linux上运行。此文件系统用于为操作系统提供文件在特定存储设备上的组织、访问支持,可管理调度设备的存储空间，并实现了文件从标识到实际地址的映射，文件的控制存取。 文件系统的总体功能为：挂载(mount)、卸载(unmount)、创建文件&#x2F;文件夹(touch&#x2F;mkdir)、查看文件夹下的文件(ls)。 代码：A Simple file sys">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OS: file system">
+<meta property="og:url" content="https://mimasss2.github.io/2022/12/05/OS-file-system/index.html">
+<meta property="og:site_name" content="Mimas&#39;s Blog">
+<meta property="og:description" content="此文件系统是基于FUSE架构的EXT2文件系统，可在linux上运行。此文件系统用于为操作系统提供文件在特定存储设备上的组织、访问支持,可管理调度设备的存储空间，并实现了文件从标识到实际地址的映射，文件的控制存取。 文件系统的总体功能为：挂载(mount)、卸载(unmount)、创建文件&#x2F;文件夹(touch&#x2F;mkdir)、查看文件夹下的文件(ls)。 代码：A Simple file sys">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://mimasss2.github.io/img/OS-file-system/banner.jpg">
+<meta property="article:published_time" content="2022-12-05T05:39:03.000Z">
+<meta property="article:modified_time" content="2022-12-05T05:39:03.000Z">
+<meta property="article:author" content="Mimas">
+<meta property="article:tag" content="OS">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://mimasss2.github.io/img/OS-file-system/banner.jpg">
+  
+  
+  
+  <title>OS: file system - Mimas&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"mimasss2.github.io","root":"/","version":"1.9.3","typing":{"enable":false,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Mimas&#39;s Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/OS-file-system/banner.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle">OS: file system</span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-12-05 13:39" pubdate>
+          2022年12月5日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          5.5k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          46 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">OS: file system</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>此文件系统是基于FUSE架构的EXT2文件系统，可在linux上运行。此文件系统用于为操作系统提供文件在特定存储设备上的组织、访问支持,可管理调度设备的存储空间，并实现了文件从标识到实际地址的映射，文件的控制存取。</p>
+<p>文件系统的总体功能为：挂载(mount)、卸载(unmount)、创建文件/文件夹(touch/mkdir)、查看文件夹下的文件(ls)。</p>
+<p>代码：<a target="_blank" rel="noopener" href="https://github.com/Mimasss2/A-Simple-File-System">A Simple file system</a></p>
+<span id="more"></span>
+<h3 id="整体布局">整体布局</h3>
+<figure>
+<img src="/img/OS-file-system/structure.png" srcset="/img/loading.gif" lazyload alt="文件系统整体布局" /><figcaption aria-hidden="true">文件系统整体布局</figcaption>
+</figure>
+<p>系统主要分为五个部分：</p>
+<ol type="1">
+<li>超级块：包含系统整体信息。</li>
+<li>索引节点位图：记录所有索引节点的使用情况，1bit对应一个索引节点。</li>
+<li>数据块位图：记录所有数据块的使用情况，1bit对应一个数据块。</li>
+<li>索引节点：记录文件的原数据，和一个文件对应。</li>
+<li>数据块：记录文件的内容。分配时不一定连续分配。</li>
+</ol>
+<h3 id="数据存储结构说明">数据/存储结构说明</h3>
+<p>超级块的内存结构： <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs C"><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">newfs_super</span> &#123;</span><br>    <span class="hljs-type">int</span>         driver_fd; <span class="hljs-comment">// 磁盘对应的文件描述符</span><br>    <span class="hljs-type">int</span>         max_ino; <span class="hljs-comment">// 所能容纳的最大文件数量</span><br><br>    <span class="hljs-type">int</span>         sz_io; <span class="hljs-comment">// 与磁盘数据交换的块大小</span><br>    <span class="hljs-type">int</span>         sz_block; <span class="hljs-comment">// 文件系统的块大小</span><br>    <span class="hljs-type">int</span>         sz_disk; <span class="hljs-comment">// 磁盘的容量大小</span><br><br>    <span class="hljs-type">uint8_t</span>     *map_inode; <span class="hljs-comment">// inode位图</span><br>    <span class="hljs-type">uint8_t</span>     *map_data;  <span class="hljs-comment">// data位图</span><br>    <span class="hljs-type">int</span>         map_inode_blks; <span class="hljs-comment">// inode 位图占用的块数</span><br>    <span class="hljs-type">int</span>         map_inode_offset; <span class="hljs-comment">// inode 位图在磁盘上的偏移</span><br><br>    <span class="hljs-type">int</span>         map_data_blks; <span class="hljs-comment">// data 位图占用的块数</span><br>    <span class="hljs-type">int</span>         map_data_offset; <span class="hljs-comment">// data 位图在磁盘上的偏移</span><br><br>    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">newfs_dentry</span> *<span class="hljs-title">root_dentry</span>;</span> <span class="hljs-comment">// 根目录dentry</span><br><br>    <span class="hljs-type">int</span> inode_offset; <span class="hljs-comment">// inode块在磁盘上的偏移</span><br>    <span class="hljs-type">int</span> data_offset;  <span class="hljs-comment">// data块在磁盘上的偏移</span><br><br>    <span class="hljs-type">int</span> sz_usage; <span class="hljs-comment">// 已用空间</span><br><br><br>    boolean is_mounted;<br>&#125;;<br><br></code></pre></td></tr></table></figure></p>
+<p>索引项inode的内存结构: <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs C"><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">newfs_inode</span> &#123;</span><br>    <span class="hljs-type">int</span> ino;                <span class="hljs-comment">// 在inode位图中的下标</span><br>    <span class="hljs-type">int</span> size;               <span class="hljs-comment">// 文件已占用空间</span><br>    <span class="hljs-type">int</span> dir_cnt;            <span class="hljs-comment">// 目录项数量</span><br>    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">newfs_dentry</span> *<span class="hljs-title">dentry</span>;</span>  <span class="hljs-comment">// 指向该inode的dentry</span><br>    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">newfs_dentry</span> *<span class="hljs-title">dentrys</span>;</span> <span class="hljs-comment">// 所有目录项</span><br>    <span class="hljs-type">int</span> block_pointer[<span class="hljs-number">6</span>];   <span class="hljs-comment">// 数据块指针</span><br>    <span class="hljs-type">uint8_t</span>* data[<span class="hljs-number">6</span>];       <span class="hljs-comment">// 对应数据块中存储的内容</span><br>    <br>&#125;;<br><br></code></pre></td></tr></table></figure></p>
+<p>目录项dentry的内存结构： <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs C"><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">newfs_dentry</span> &#123;</span><br>    <span class="hljs-type">char</span>                fname[MAX_NAME_LEN];<br>    <span class="hljs-type">uint32_t</span>            ino; <span class="hljs-comment">// 在inode位图中的下标</span><br>    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">newfs_inode</span>*   <span class="hljs-title">inode</span>;</span><br>    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">newfs_dentry</span>*  <span class="hljs-title">parent</span>;</span>   <br>    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">newfs_dentry</span>*  <span class="hljs-title">brother</span>;</span>                      <br>    FILE_TYPE       ftype; <span class="hljs-comment">// 指向的 ino 文件类型</span><br>    <span class="hljs-type">int</span>             valid; <span class="hljs-comment">// 该目录项是否有效</span><br>&#125;;<br><br></code></pre></td></tr></table></figure></p>
+<p>超级块的磁盘结构： <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs C"><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">newfs_super_d</span></span><br><span class="hljs-class">&#123;</span> <br>    <span class="hljs-type">uint32_t</span>    magic_num; <span class="hljs-comment">// 验证磁盘是否已经被挂载的幻数</span><br><br>    <span class="hljs-type">int</span>         max_ino; <span class="hljs-comment">// 最多支持的文件数</span><br><br>    <span class="hljs-type">int</span>         map_inode_blks; <span class="hljs-comment">// inode 位图占用的块数</span><br>    <span class="hljs-type">int</span>         map_inode_offset; <span class="hljs-comment">// inode 位图在磁盘上的偏移</span><br><br>    <span class="hljs-type">int</span>         map_data_blks; <span class="hljs-comment">// data 位图占用的块数</span><br>    <span class="hljs-type">int</span>         map_data_offset; <span class="hljs-comment">// data 位图在磁盘上的偏移</span><br><br>    <span class="hljs-type">int</span>         inode_offset; <span class="hljs-comment">// inode块在磁盘上的偏移</span><br>    <span class="hljs-type">int</span>         data_offset; <span class="hljs-comment">// data块在磁盘上的偏移</span><br><br>    <span class="hljs-type">int</span>         sz_usage; <span class="hljs-comment">// 已用空间</span><br><br>&#125;;<br></code></pre></td></tr></table></figure></p>
+<p>索引项inode的磁盘结构： <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs C"><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">newfs_inode_d</span></span><br><span class="hljs-class">&#123;</span><br>    <span class="hljs-type">uint32_t</span>    ino;                <span class="hljs-comment">// 在 inode 位图中的下标</span><br>    <span class="hljs-type">int</span>         size;               <span class="hljs-comment">// 文件已占用空间</span><br>    FILE_TYPE   ftype;              <span class="hljs-comment">// 文件类型（目录类型、普通文件类型）</span><br>    <span class="hljs-type">int</span>         dir_cnt;            <span class="hljs-comment">// 如果是目录类型文件，下面有几个目录项</span><br>    <span class="hljs-type">int</span>         block_pointer[<span class="hljs-number">6</span>];   <span class="hljs-comment">// 数据块指针（可固定分配）</span><br>&#125;;<br></code></pre></td></tr></table></figure></p>
+<p>目录项dentry的磁盘结构： <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs C"><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">newfs_dentry_d</span></span><br><span class="hljs-class">&#123;</span><br>    <span class="hljs-type">char</span>               fname[SFS_MAX_FILE_NAME];  <span class="hljs-comment">// 文件名</span><br>    FILE_TYPE          ftype;                     <span class="hljs-comment">// 文件格式</span><br>    <span class="hljs-type">int</span>                ino;                       <span class="hljs-comment">// 在inode位图中的下标</span><br>&#125;; <br></code></pre></td></tr></table></figure></p>
+<h3 id="功能点说明">功能点说明</h3>
+<h4 id="mount">mount</h4>
+<ol type="1">
+<li>将文件系统的全局参数newfs_option作为参数，调用newfs_utils.c中的fs_mount函数，实现文件系统的挂载，其具体执行流程如下。</li>
+<li>fs_mount函数首先调用ddriver_open，打开磁盘文件，并将文件描述符存储到文件系统的超级块中。</li>
+<li>从磁盘中读取磁盘容量，io块大小，数据块大小，并将其存储到超级块中。</li>
+<li>从磁盘的超级块中读取文件系统的超级块信息到超级块的磁盘表示结构中。</li>
+<li>调用new_dentry函数，创建根节点的目录项。</li>
+<li>若磁盘的超级块中的幻数不正确，即磁盘从未被挂载，则根据之前读取到的块大小信息，计算超级块/索引节点位图/数据块位图/索引块/数据块占用的磁盘块数，在磁盘中的位置偏移。将计算的结果存储到超级块的磁盘存储结构/内存存储结构中。</li>
+<li>从磁盘中读取索引节点位图、数据块位图。</li>
+<li>调用fs_alloc_inode函数，为根节点的目录项创建相应的索引节点，并使根节点的目录项指向词索引节点。并将超级块中的根目录指针指向此目录项。</li>
+<li>调用fs_dump_map打印此时的索引节点位图和数据块位图分布。</li>
+</ol>
+<h4 id="unmount">unmount</h4>
+<ol type="1">
+<li>调用newfs_utils.c中的fs_unmount函数，实现文件系统的卸载，其具体执行流程如下。</li>
+<li>首先判断超级块中的挂载标识符，若文件系统未被挂载，则直接错误返回。</li>
+<li>调用fs_sync_inode函数，从根节点向下刷写节点，将文件和文件夹中的信息写回到磁盘。</li>
+<li>将超级块内存表示中的信息复制到超级块的磁盘表示中，并将超级块的磁盘表示中存储的信息写回磁盘。</li>
+<li>将索引节点位图、数据块位图写回到磁盘中。</li>
+<li>释放内存中索引节点位图、数据块位图占用的内存空间。</li>
+<li>关闭磁盘的文件描述符。</li>
+</ol>
+<h4 id="touch">touch</h4>
+<ol type="1">
+<li>调用newfs_getattr函数，获取当前目录的属性。</li>
+<li>调用newfs_getattr函数，获取待创建文件的属性（判断文件是否已经存在）。</li>
+<li>若待创建的文件已存在，则跳过创建文件的步骤，等待下一条命令。</li>
+<li>若待创建的文件不存在，则调用newfs_mknod创建文件，newfs_mknod函数执行流程如下。</li>
+<li>调用fs_lookup，解析文件路径，并得到待创建文件的上级目录的目录项。</li>
+<li>如果fs_lookup找到了要创建的文件，即要创建的文件已存在，则错误返回。</li>
+<li>调用fs_get_fname函数，解析文件的文件名（不含上级目录）。</li>
+<li>创建待创建文件的目录项，并将其父目录项指针指向上级目录</li>
+<li>调用fs_alloc_inode函数，为此文件分类索引节点，并使目录项指向索引节点。</li>
+<li>调用fs_alloc_dentry函数，为上级目录创建索引节点，将其存储到内存中。</li>
+<li>调用newfs_getattr函数，获取创建的文件的属性。若属性获取成功，则意味着文件创建成功。</li>
+</ol>
+<h4 id="mkdir">mkdir</h4>
+<ol type="1">
+<li>调用newfs_getattr函数，获取当前目录的属性。</li>
+<li>调用newfs_getattr函数，获取待创建目录的属性（判断目录是否已经存在）。</li>
+<li><strong>若待创建的目录已存在</strong>，则提示错误信息：目录已存在。</li>
+<li><strong>若目录不存在</strong>，则调用newfs_mkdir创建目录。newfs_mkdir函数执行流程如下。</li>
+<li>调用fs_lookup函数，解析文件路径，并得到上级目录的目录项。</li>
+<li>如果fs_lookup函数找到了要创建的文件夹，即要创建的文件夹已存在，则错误返回。</li>
+<li>如果上级目录的文件属性为文件，则无法再创建下级目录，错误返回。</li>
+<li>调用fs_get_fname函数，解析目录的名字。</li>
+<li>调用new_dentry函数，创建目录的目录项，并将其父目录项指针指向上级目录的目录项</li>
+<li>调用fs_alloc_inode函数，创建此目录的索引节点，并将目录的目录项指向索引节点。</li>
+<li>调用fs_alloc_dentry函数，创建上级目录项对应的索引节点</li>
+<li>调用newfs_getattr函数，获取创建的目录的属性。若属性获取成功，则意味着目录创建成功。</li>
+</ol>
+<h4 id="ls">ls</h4>
+<ol type="1">
+<li>调用newfs_getattr函数，获取ls命令指定的路径（目录/文件）的属性。</li>
+<li>若指定的路径为文件，则打印文件名。</li>
+<li>若指定的路径为目录，则执行以下步骤。</li>
+<li>依次调用newfs_readdir函数，读取指定目录中的内容，其中参数offset（指示第i个目录项）依次递增，直到所有目录项读取完毕。newfs_readdir的执行流程如步骤6-8所述。</li>
+<li>调用newfs_getattr函数，获取上一步获取的目录项对应的属性值。。</li>
+<li>调用fs_lookup，找到传入路径的目录项。</li>
+<li>如果目录项存在，则找到目录项指向的索引节点，并调用fs_get_dentry函数获取目录中的第offset个目录项。</li>
+<li>若目录项存在，则调用filler函数，把目录项中的内容填充到buf中。</li>
+</ol>
+<h3 id="使用指南">使用指南</h3>
+<h4 id="mount-1">mount:</h4>
+<p><strong>功能</strong>：挂载newfs文件系统</p>
+<p><strong>外部指令</strong>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">fusermount [options] mountpoint<br></code></pre></td></tr></table></figure>
+<p><strong>参数说明</strong>：</p>
+<ul>
+<li>-h 显示帮助文档</li>
+<li>-v 显示版本号</li>
+<li>-o 挂载的选项 opt [,opt…]</li>
+<li>-u 卸载</li>
+<li>-q 不显示部分信息</li>
+<li>-z 强制卸载，尽管资源仍然处于被使用状态</li>
+</ul>
+<h4 id="umount">umount:</h4>
+<p><strong>功能</strong>：卸载newfs文件系统</p>
+<p><strong>使用语法</strong>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">fusermount -u mountpoint<br></code></pre></td></tr></table></figure>
+<p>参考mount中说明的fusermount的相关信息</p>
+<h4 id="mkdir-1">mkdir:</h4>
+<p><strong>功能</strong>：新建目录</p>
+<p><strong>使用语法</strong>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">mkdir</span> [-p] dirName<br></code></pre></td></tr></table></figure>
+<p><strong>参数说明</strong>：</p>
+<ul>
+<li>-p 确保目录名称存在，不存在的就建一个。</li>
+</ul>
+<p><strong>实例</strong></p>
+<p>在工作目录下，建立一个名为 dir0的子目录 :</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">mkdir</span> dir0<br></code></pre></td></tr></table></figure>
+<p>在工作目录下的 dir0 目录中，建立一个名为 test 的子目录。若 dir0 目录原本不存在，则建立一个。（注：本例若不加 -p 参数，且原本 dir0 目录不存在，则产生错误。）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">mkdir</span> -p dir0/test<br></code></pre></td></tr></table></figure>
+<h4 id="touch-1">touch:</h4>
+<p><strong>功能</strong>：修改文件或者目录的时间属性，包括存取时间和更改时间。若文件不存在，系统会建立一个新的文件。</p>
+<p><strong>使用语法</strong>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">touch</span> [-acfm][-d&lt;日期时间&gt;][-r&lt;参考文件或目录&gt;] [-t&lt;日期时间&gt;][--<span class="hljs-built_in">help</span>][--version][文件或目录…]<br></code></pre></td></tr></table></figure>
+<p><strong>参数说明</strong>：</p>
+<ul>
+<li>-a 改变档案的读取时间记录。</li>
+<li>-m 改变档案的修改时间记录。</li>
+<li>-c 假如目的档案不存在，不会建立新的档案。与 --no-create 的效果一样。</li>
+<li>-f 不使用，是为了与其他 unix 系统的相容性而保留。</li>
+<li>-r 使用参考档的时间记录，与 --file 的效果一样。</li>
+<li>-d 设定时间与日期，可以使用各种不同的格式。</li>
+<li>-t 设定档案的时间记录，格式与 date 指令相同。</li>
+</ul>
+<p><strong>实例</strong></p>
+<p>使用指令"touch"修改文件"testfile"的时间属性为当前系统时间，输入如下命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ <span class="hljs-built_in">touch</span> testfile                <span class="hljs-comment">#修改文件的时间属性 </span><br></code></pre></td></tr></table></figure>
+<p>首先，使用ls命令查看testfile文件的属性，如下所示：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ <span class="hljs-built_in">ls</span> -l testfile                <span class="hljs-comment">#查看文件的时间属性   </span><br><span class="hljs-comment">#原来文件的修改时间为16:09  </span><br>-rw-r--r-- 1 hdd hdd 55 2011-08-22 16:09 testfile<br></code></pre></td></tr></table></figure>
+<p>执行指令"touch"修改文件属性以后，并再次查看该文件的时间属性，如下所示：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ <span class="hljs-built_in">touch</span> testfile                <span class="hljs-comment">#修改文件时间属性为当前系统时间  </span><br>$ <span class="hljs-built_in">ls</span> -l testfile                <span class="hljs-comment">#查看文件的时间属性  </span><br><span class="hljs-comment">#修改后文件的时间属性为当前系统时间  </span><br>-rw-r--r-- 1 hdd hdd 55 2011-08-22 19:53 testfile  <br></code></pre></td></tr></table></figure>
+<p>使用指令"touch"时，如果指定的文件不存在，则将创建一个新的空白文件。例如，在当前目录下，使用该指令创建一个空白文件"file"，输入如下命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ <span class="hljs-built_in">touch</span> file            <span class="hljs-comment">#创建一个名为“file”的新的空白文件 </span><br></code></pre></td></tr></table></figure>
+<h4 id="ls-1">ls:</h4>
+<p><strong>功能</strong>：显示指定工作目录下之内容（列出目前工作目录所含之文件及子目录)。</p>
+<p><strong>使用语法</strong>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">ls</span> [-alrtAFR] [name...]<br></code></pre></td></tr></table></figure>
+<p><strong>参数</strong> :</p>
+<ul>
+<li>-a 显示所有文件及目录 (. 开头的隐藏文件也会列出)</li>
+<li>-l 除文件名称外，亦将文件型态、权限、拥有者、文件大小等资讯详细列出</li>
+<li>-r 将文件以相反次序显示(原定依英文字母次序)</li>
+<li>-t 将文件依建立时间之先后次序列出</li>
+<li>-A 同 -a ，但不列出 "." (目前目录) 及 ".." (父目录)</li>
+<li>-F 在列出的文件名称后加一符号；例如可执行档则加 "*", 目录则加 "/"</li>
+<li>-R 若目录下有文件，则以下之文件亦皆依序列出</li>
+</ul>
+<p><strong>实例</strong> 列出当前目录(.)下的所有目录：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ <span class="hljs-built_in">ls</span> .<br>dir0  dir1 file0<br></code></pre></td></tr></table></figure>
+<p>列出目前工作目录下所有名称是 s 开头的文件，越新的排越后面 : <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">ls</span> -ltr s*<br></code></pre></td></tr></table></figure></p>
+<p>将 /mnt 目录以下所有目录及文件详细资料列出 : <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">ls</span> -lR /mnt<br></code></pre></td></tr></table></figure></p>
+<p>列出目前工作目录下所有文件及目录；目录于名称后加 "/", 可执行档于名称后加 "*" : <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">ls</span> -AF<br></code></pre></td></tr></table></figure></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Projects/" class="category-chain-item">Projects</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/OS/">#OS</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>OS: file system</div>
+      <div>https://mimasss2.github.io/2022/12/05/OS-file-system/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Mimas</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年12月5日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/12/09/git_cheatsheet/" title="git cheatsheet">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">git cheatsheet</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/11/28/NLP_sentence_diversity_evaluation/" title="无监督句子多样性评价指标">
+                        <span class="hidden-mobile">无监督句子多样性评价指标</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
