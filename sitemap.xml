@@ -2,16 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://mimas.top/2023/01/26/vim-cheatsheet/</loc>
+    <loc>https://mimas.top/about/index.html</loc>
     
-    <lastmod>2023-01-26</lastmod>
+    <lastmod>2023-01-29</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://mimas.top/about/index.html</loc>
+    <loc>https://mimas.top/2023/01/26/vim-cheatsheet/</loc>
     
     <lastmod>2023-01-26</lastmod>
     
@@ -106,13 +106,6 @@
   </url>
   
   <url>
-    <loc>https://mimas.top/tags/git/</loc>
-    <lastmod>2023-01-29</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://mimas.top/tags/oj/</loc>
     <lastmod>2023-01-29</lastmod>
     <changefreq>weekly</changefreq>
@@ -127,14 +120,21 @@
   </url>
   
   <url>
-    <loc>https://mimas.top/tags/NSCSCC/</loc>
+    <loc>https://mimas.top/tags/vim/</loc>
     <lastmod>2023-01-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://mimas.top/tags/vim/</loc>
+    <loc>https://mimas.top/tags/git/</loc>
+    <lastmod>2023-01-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://mimas.top/tags/NSCSCC/</loc>
     <lastmod>2023-01-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -143,14 +143,14 @@
 
   
   <url>
-    <loc>https://mimas.top/categories/Machine-Learning/</loc>
+    <loc>https://mimas.top/categories/Projects/</loc>
     <lastmod>2023-01-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://mimas.top/categories/Projects/</loc>
+    <loc>https://mimas.top/categories/Machine-Learning/</loc>
     <lastmod>2023-01-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>

@@ -1,5 +1,5 @@
-https://mimas.top/2023/01/26/vim-cheatsheet/
 https://mimas.top/about/index.html
+https://mimas.top/2023/01/26/vim-cheatsheet/
 https://mimas.top/2022/11/28/NLP_sentence_diversity_evaluation/
 https://mimas.top/2022/12/09/git_cheatsheet/
 https://mimas.top/2022/12/05/OS-file-system/
@@ -10,12 +10,12 @@ https://mimas.top/2022/01/29/HITSZOJ%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E8%AF%B
 https://mimas.top/
 https://mimas.top/tags/Compiler/
 https://mimas.top/tags/NLP/
-https://mimas.top/tags/git/
 https://mimas.top/tags/oj/
 https://mimas.top/tags/OS/
-https://mimas.top/tags/NSCSCC/
 https://mimas.top/tags/vim/
-https://mimas.top/categories/Machine-Learning/
+https://mimas.top/tags/git/
+https://mimas.top/tags/NSCSCC/
 https://mimas.top/categories/Projects/
+https://mimas.top/categories/Machine-Learning/
 https://mimas.top/categories/Machine-Learning/NLP/
 https://mimas.top/categories/Cheatsheet/
