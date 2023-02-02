@@ -221,7 +221,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          4k 字
+          4.6k 字
         
       </span>
     
@@ -232,7 +232,7 @@
         
         
         
-          34 分钟
+          39 分钟
         
       </span>
     
@@ -354,25 +354,35 @@ p_{max}(x) = MaxPooling ([p(x_1| s, x_{:0}); p(x_2|s,x_{:1});\cdots; p(x_t|s,x_{
 <h2 id="相关工作待阅读">相关工作(待阅读)</h2>
 <h3 id="可控文本生成">可控文本生成</h3>
 <ol type="1">
-<li>SeqGAN <sup id="fnref:2" class="footnote-ref"><a href="#fn:2" rel="footnote"><span class="hint--top hint--rounded" aria-label="SeqGAN: Sequence Generative Adversarial Nets with Policy Gradient">[2]</span></a></sup></li>
-<li>conditional generative model <sup id="fnref:3" class="footnote-ref"><a href="#fn:3" rel="footnote"><span class="hint--top hint--rounded" aria-label="Controlling Output Length in Neural Encoder-Decoders">[3]</span></a></sup> <sup id="fnref:4" class="footnote-ref"><a href="#fn:4" rel="footnote"><span class="hint--top hint--rounded" aria-label="Controlling Linguistic Style Aspects in Neural Language Generation">[4]</span></a></sup></li>
-<li>Reinforcement Learning <sup id="fnref:5" class="footnote-ref"><a href="#fn:5" rel="footnote"><span class="hint--top hint--rounded" aria-label="Fine-Tuning Language Models from Human Preferences">[5]</span></a></sup></li>
-<li>Conditional-Transformer-Language model(various control codes) <sup id="fnref:6" class="footnote-ref"><a href="#fn:6" rel="footnote"><span class="hint--top hint--rounded" aria-label="A Conditional Transformer Language Model for Controllable Generation">[6]</span></a></sup></li>
-<li>PPLM: with pluggable attribute controllers <sup id="fnref:7" class="footnote-ref"><a href="#fn:7" rel="footnote"><span class="hint--top hint--rounded" aria-label="Plug and Play Language Models: A Simple Approach to Controlled Text Generation">[7]</span></a></sup></li>
-<li>Content-Conditional (target control) <sup id="fnref:8" class="footnote-ref"><a href="#fn:8" rel="footnote"><span class="hint--top hint--rounded" aria-label="CoCon: A Self-Supervised Approach for Controlled Text Generation">[8]</span></a></sup></li>
-<li>infusing attribute representation to LM <sup id="fnref:9" class="footnote-ref"><a href="#fn:9" rel="footnote"><span class="hint--top hint--rounded" aria-label="Attribute Alignment: Controlling Text Generation from Pre-trained Language Models">[9]</span></a></sup></li>
+<li><p>SeqGAN <sup id="fnref:2" class="footnote-ref"><a href="#fn:2" rel="footnote"><span class="hint--top hint--rounded" aria-label="SeqGAN: Sequence Generative Adversarial Nets with Policy Gradient">[2]</span></a></sup></p>
+<p>将生成模型看作RL中的agent，state对应已生成的token，action是下一个要生成的token。使用policy gradient，MC search来逼近state-action的值，缓解离散词向量和GAN训练方式的出入。</p></li>
+<li><p>conditional generative model</p>
+<p><sup id="fnref:3" class="footnote-ref"><a href="#fn:3" rel="footnote"><span class="hint--top hint--rounded" aria-label="Controlling Output Length in Neural Encoder-Decoders">[3]</span></a></sup> 在hidden state中加入长度的embedding; <sup id="fnref:4" class="footnote-ref"><a href="#fn:4" rel="footnote"><span class="hint--top hint--rounded" aria-label="Controlling Linguistic Style Aspects in Neural Language Generation">[4]</span></a></sup> 对每类style做一个embedding矩阵，不同类style的embedding拼接在一起后，作为RNN的输入</p></li>
+<li><p>Reinforcement Learning <sup id="fnref:5" class="footnote-ref"><a href="#fn:5" rel="footnote"><span class="hint--top hint--rounded" aria-label="Fine-Tuning Language Models from Human Preferences">[5]</span></a></sup></p></li>
+<li><p>Conditional-Transformer-Language model(various control codes) <sup id="fnref:6" class="footnote-ref"><a href="#fn:6" rel="footnote"><span class="hint--top hint--rounded" aria-label="A Conditional Transformer Language Model for Controllable Generation">[6]</span></a></sup></p></li>
+<li><p>PPLM: with pluggable attribute controllers <sup id="fnref:7" class="footnote-ref"><a href="#fn:7" rel="footnote"><span class="hint--top hint--rounded" aria-label="Plug and Play Language Models: A Simple Approach to Controlled Text Generation">[7]</span></a></sup></p></li>
+<li><p>Content-Conditional (target control) <sup id="fnref:8" class="footnote-ref"><a href="#fn:8" rel="footnote"><span class="hint--top hint--rounded" aria-label="CoCon: A Self-Supervised Approach for Controlled Text Generation">[8]</span></a></sup></p></li>
+<li><p>infusing attribute representation to LM <sup id="fnref:9" class="footnote-ref"><a href="#fn:9" rel="footnote"><span class="hint--top hint--rounded" aria-label="Attribute Alignment: Controlling Text Generation from Pre-trained Language Models">[9]</span></a></sup></p></li>
 </ol>
 <h3 id="评论生成">评论生成</h3>
 <ol type="1">
-<li>A2T(Attribute-to-Text) <sup id="fnref:10" class="footnote-ref"><a href="#fn:10" rel="footnote"><span class="hint--top hint--rounded" aria-label="Learning to Generate Product Reviews from Attributes">[10]</span></a></sup> <sup id="fnref:11" class="footnote-ref"><a href="#fn:11" rel="footnote"><span class="hint--top hint--rounded" aria-label="Cyclic consistency based product review generator from attributes">[11]</span></a></sup></li>
-<li>AT2T(Attribute-matched-Text-to-Text) <sup id="fnref:12" class="footnote-ref"><a href="#fn:12" rel="footnote"><span class="hint--top hint--rounded" aria-label="Retrieval-Augmented Controllable Review Generation">[12]</span></a></sup></li>
+<li><p>A2T(Attribute-to-Text) <sup id="fnref:10" class="footnote-ref"><a href="#fn:10" rel="footnote"><span class="hint--top hint--rounded" aria-label="Learning to Generate Product Reviews from Attributes">[10]</span></a></sup></p>
+<p><sup id="fnref:11" class="footnote-ref"><a href="#fn:11" rel="footnote"><span class="hint--top hint--rounded" aria-label="Cyclic consistency based product review generator from attributes">[11]</span></a></sup> 将特征转化为独热编码，进一步编码后作为LSTM的初始hidden state。注意力机制，用来参照不同的特征</p></li>
+<li><p>AT2T(Attribute-matched-Text-to-Text) <sup id="fnref:12" class="footnote-ref"><a href="#fn:12" rel="footnote"><span class="hint--top hint--rounded" aria-label="Retrieval-Augmented Controllable Review Generation">[12]</span></a></sup></p></li>
 </ol>
 <h3 id="情感级可控文本生成">情感级可控文本生成</h3>
 <ol type="1">
-<li>on aspect-sentiment scores <sup id="fnref:13" class="footnote-ref"><a href="#fn:13" rel="footnote"><span class="hint--top hint--rounded" aria-label="Towards Automatic Generation of Product Reviews from Aspect-Sentiment Scores">[13]</span></a></sup></li>
-<li>semi-supervise training -- leverage large-scale unlabeled data <sup id="fnref:14" class="footnote-ref"><a href="#fn:14" rel="footnote"><span class="hint--top hint--rounded" aria-label="Aspect-Level Sentiment-Controllable Review Generation with Mutual Learning Framework">[14]</span></a></sup></li>
-<li>dual learning system (+classifier) <sup id="fnref:15" class="footnote-ref"><a href="#fn:15" rel="footnote"><span class="hint--top hint--rounded" aria-label="Mutual disentanglement learning for joint fine-grained sentiment classification and controllable text generation">[15]</span></a></sup></li>
-<li>HTT opinion generation &amp; review composition <sup id="fnref:16" class="footnote-ref"><a href="#fn:16" rel="footnote"><span class="hint--top hint--rounded" aria-label="Hierarchical template transformer for fine-grained sentiment controllable generation">[16]</span></a></sup></li>
+<li><p>on aspect-sentiment scores <sup id="fnref:13" class="footnote-ref"><a href="#fn:13" rel="footnote"><span class="hint--top hint--rounded" aria-label="Towards Automatic Generation of Product Reviews from Aspect-Sentiment Scores">[13]</span></a></sup></p>
+<p>用了hierarchical的架构，有一个文章LSTM(P-LSTM)和句子LSTM(S-LSTM)。</p>
+<ul>
+<li>特征向量作为P-LSTM的起始状态。</li>
+<li>每个方面的句子对应一个S-LSTM</li>
+<li>上一句的S-LSTM的终态和上一个P-LSTM的hidden state 作gated 后，作为下一个P-LSTM的cell 的hidden state</li>
+</ul></li>
+<li><p>semi-supervise training -- leverage large-scale unlabeled data <sup id="fnref:14" class="footnote-ref"><a href="#fn:14" rel="footnote"><span class="hint--top hint--rounded" aria-label="Aspect-Level Sentiment-Controllable Review Generation with Mutual Learning Framework">[14]</span></a></sup></p>
+<p>mutual learning 来利用大规模无标注数据，有点像GAN的思想。用confidence mechanism（伪标签的置信度）作为判别器对生成器的反馈，作用于生成器的损失项；用reconstruction reward（在伪标签条件下生成句子的perplexity）作为生成器对判别器的反馈。</p></li>
+<li><p>dual learning system (+classifier) <sup id="fnref:15" class="footnote-ref"><a href="#fn:15" rel="footnote"><span class="hint--top hint--rounded" aria-label="Mutual disentanglement learning for joint fine-grained sentiment classification and controllable text generation">[15]</span></a></sup></p></li>
+<li><p>HTT opinion generation &amp; review composition <sup id="fnref:16" class="footnote-ref"><a href="#fn:16" rel="footnote"><span class="hint--top hint--rounded" aria-label="Hierarchical template transformer for fine-grained sentiment controllable generation">[16]</span></a></sup></p></li>
 </ol>
 <section class="footnotes">
 <h2>
@@ -544,6 +554,12 @@ p_{max}(x) = MaxPooling ([p(x_1| s, x_{:0}); p(x_2|s,x_{:1});\cdots; p(x_t|s,x_{
             </div>
 
             
+  <article id="comments" lazyload>
+    
+
+  </article>
+
+
           </article>
         </div>
       </div>
