@@ -221,7 +221,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          4.6k 字
+          4.7k 字
         
       </span>
     
@@ -232,7 +232,7 @@
         
         
         
-          39 分钟
+          40 分钟
         
       </span>
     
@@ -360,7 +360,8 @@ p_{max}(x) = MaxPooling ([p(x_1| s, x_{:0}); p(x_2|s,x_{:1});\cdots; p(x_t|s,x_{
 <p><sup id="fnref:3" class="footnote-ref"><a href="#fn:3" rel="footnote"><span class="hint--top hint--rounded" aria-label="Controlling Output Length in Neural Encoder-Decoders">[3]</span></a></sup> 在hidden state中加入长度的embedding; <sup id="fnref:4" class="footnote-ref"><a href="#fn:4" rel="footnote"><span class="hint--top hint--rounded" aria-label="Controlling Linguistic Style Aspects in Neural Language Generation">[4]</span></a></sup> 对每类style做一个embedding矩阵，不同类style的embedding拼接在一起后，作为RNN的输入</p></li>
 <li><p>Reinforcement Learning <sup id="fnref:5" class="footnote-ref"><a href="#fn:5" rel="footnote"><span class="hint--top hint--rounded" aria-label="Fine-Tuning Language Models from Human Preferences">[5]</span></a></sup></p></li>
 <li><p>Conditional-Transformer-Language model(various control codes) <sup id="fnref:6" class="footnote-ref"><a href="#fn:6" rel="footnote"><span class="hint--top hint--rounded" aria-label="A Conditional Transformer Language Model for Controllable Generation">[6]</span></a></sup></p></li>
-<li><p>PPLM: with pluggable attribute controllers <sup id="fnref:7" class="footnote-ref"><a href="#fn:7" rel="footnote"><span class="hint--top hint--rounded" aria-label="Plug and Play Language Models: A Simple Approach to Controlled Text Generation">[7]</span></a></sup></p></li>
+<li><p>PPLM: with pluggable attribute controllers <sup id="fnref:7" class="footnote-ref"><a href="#fn:7" rel="footnote"><span class="hint--top hint--rounded" aria-label="Plug and Play Language Models: A Simple Approach to Controlled Text Generation">[7]</span></a></sup></p>
+<p>在LM后加一个attribute model，用BoW（Bag of Words）拟合生成的句子部分对于attribute的拟合度。更新梯度时，只更新之前生成的一部分句子的key和value matrix（与之后生成的句子部分的attention相关），以此引导后面部分句子的内容向attribute靠拢。</p></li>
 <li><p>Content-Conditional (target control) <sup id="fnref:8" class="footnote-ref"><a href="#fn:8" rel="footnote"><span class="hint--top hint--rounded" aria-label="CoCon: A Self-Supervised Approach for Controlled Text Generation">[8]</span></a></sup></p></li>
 <li><p>infusing attribute representation to LM <sup id="fnref:9" class="footnote-ref"><a href="#fn:9" rel="footnote"><span class="hint--top hint--rounded" aria-label="Attribute Alignment: Controlling Text Generation from Pre-trained Language Models">[9]</span></a></sup></p></li>
 </ol>
