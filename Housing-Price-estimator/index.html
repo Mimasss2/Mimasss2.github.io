@@ -221,7 +221,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.5k 字
+          3.2k 字
         
       </span>
     
@@ -232,7 +232,7 @@
         
         
         
-          13 分钟
+          28 分钟
         
       </span>
     
@@ -277,6 +277,7 @@
                 
                 <p>本项目旨在通过房屋交易市场交易记录，挖掘数据间潜在的关联关系，设计高效、解释性强、鲁棒的算法对房屋交易价格进行预测。</p>
 <span id="more"></span>
+<p>代码和数据: https://github.com/Mimasss2/Housing-price-estimator</p>
 <h3 id="可视化工具">可视化工具</h3>
 <ul>
 <li>sweetviz: Python开源库，快速可视化目标值和比较数据集。</li>
@@ -293,8 +294,10 @@
 <h4 id="数据预处理">数据预处理</h4>
 <p>对选取的特征中的值进行预处理：填充缺失值，将文字属性数值化，识别并处理异常值等。</p>
 <p>用众数填充总单元、居住单元、邮编、修建年份、公寓号中的缺失值。按居住单元分组，用均值填充总平方英尺中的缺失值。用0填充出售价格中的缺失值。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 缺失值处理</span><br>train_df = train_df.replace([<span class="hljs-string">&#x27; -  &#x27;</span>, <span class="hljs-string">&#x27;0&#x27;</span>, <span class="hljs-number">0</span>, np.nan], np.nan)<br><br>train_df[<span class="hljs-string">&#x27;总单元&#x27;</span>] = train_df[<span class="hljs-string">&#x27;总单元&#x27;</span>].fillna(train_df[<span class="hljs-string">&#x27;总单元&#x27;</span>].mode()[<span class="hljs-number">0</span>])<br>train_df[<span class="hljs-string">&#x27;居住单元&#x27;</span>] = train_df[<span class="hljs-string">&#x27;居住单元&#x27;</span>].fillna(train_df[<span class="hljs-string">&#x27;居住单元&#x27;</span>].mode()[<span class="hljs-number">0</span>])<br>train_df[<span class="hljs-string">&#x27;总平方英尺&#x27;</span>] = train_df[<span class="hljs-string">&#x27;总平方英尺&#x27;</span>].astype(<span class="hljs-string">&#x27;float64&#x27;</span>)<br>train_df[<span class="hljs-string">&#x27;总平方英尺&#x27;</span>] = train_df[<span class="hljs-string">&#x27;总平方英尺&#x27;</span>].fillna(<br>    train_df.groupby(<span class="hljs-string">&#x27;居住单元&#x27;</span>)[<span class="hljs-string">&#x27;总平方英尺&#x27;</span>].transform(<span class="hljs-string">&#x27;mean&#x27;</span>))<br>train_df[<span class="hljs-string">&#x27;总平方英尺&#x27;</span>] = train_df[<span class="hljs-string">&#x27;总平方英尺&#x27;</span>].fillna(train_df[<span class="hljs-string">&#x27;总平方英尺&#x27;</span>].mode()[<span class="hljs-number">0</span>])<br>train_df[<span class="hljs-string">&#x27;邮编&#x27;</span>] = train_df[<span class="hljs-string">&#x27;邮编&#x27;</span>].astype(<span class="hljs-string">&#x27;float64&#x27;</span>)<br>train_df[<span class="hljs-string">&#x27;邮编&#x27;</span>] = train_df[<span class="hljs-string">&#x27;邮编&#x27;</span>].fillna(train_df[<span class="hljs-string">&#x27;邮编&#x27;</span>].mode()[<span class="hljs-number">0</span>])<br>train_df[<span class="hljs-string">&#x27;修建年份&#x27;</span>] = train_df[<span class="hljs-string">&#x27;修建年份&#x27;</span>].astype(<span class="hljs-string">&#x27;float64&#x27;</span>)<br>train_df[<span class="hljs-string">&#x27;修建年份&#x27;</span>] = train_df[<span class="hljs-string">&#x27;修建年份&#x27;</span>].fillna(train_df[<span class="hljs-string">&#x27;修建年份&#x27;</span>].mode()[<span class="hljs-number">0</span>])<br>train_df[<span class="hljs-string">&#x27;出售价格&#x27;</span>] = train_df[<span class="hljs-string">&#x27;出售价格&#x27;</span>].astype(<span class="hljs-string">&#x27;float64&#x27;</span>)<br>train_df[<span class="hljs-string">&#x27;出售价格&#x27;</span>] = train_df[<span class="hljs-string">&#x27;出售价格&#x27;</span>].fillna(<span class="hljs-number">0</span>)<br>train_df[<span class="hljs-string">&#x27;公寓号&#x27;</span>] = train_df[<span class="hljs-string">&#x27;公寓号&#x27;</span>].fillna(train_df[<span class="hljs-string">&#x27;公寓号&#x27;</span>].mode()[<span class="hljs-number">0</span>])<br>train_df = train_df.drop(train_df[train_df[<span class="hljs-string">&#x27;出售价格&#x27;</span>] == <span class="hljs-number">0</span>].index)<br>train_df = train_df.reset_index()<br></code></pre></td></tr></table></figure>
 <p>去除训练集中出售价格为0的数据。根据图像显示的数据间的关系，以及数据间的相关系数，发现商业单元、土地平方英尺、地役权、出售日期这四个特征与目标出售价格之间的相关性很低，遂将其删除。用均值填充所有含nan的数值列。</p>
 <p>对所有特征进行归一化，并使用主成分分析方法，分析每个特征对总体的贡献。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">target_encoding</span>(<span class="hljs-params">self,target_feature, df, cat_cols, te_cols</span>):<br>      <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(cat_cols) == <span class="hljs-number">0</span>:<br>          <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;All features are encoded&#x27;</span><br>      target_std = df[target_feature].std()<br>      <span class="hljs-keyword">for</span> col <span class="hljs-keyword">in</span> cat_cols:<br>          encoded_std = df.groupby(col)[target_feature].mean().std()<br>          <span class="hljs-keyword">if</span> target_std &lt; encoded_std:<br>              df[col] = df.groupby(col)[target_feature].transform(<span class="hljs-string">&#x27;mean&#x27;</span>)<br>              cat_cols.remove(col)<br>              te_cols.append(col)<br></code></pre></td></tr></table></figure>
 <p>经过多轮缺失值填充，归一化等操作，数据清洗后特征之间的相关关系如下图所示。地役权和所属区域、建筑类型、税收级别关系较强，其他指标间的相关性也略有提升。但出售价格和这些特征之间的相关性还是不太强，这是受到了原始数据复杂性的约束所致。</p>
 <figure>
 <img src="\img\Housing-Price-estimator\数据清洗后特征之间的相关关系.png" srcset="/img/loading.gif" lazyload alt="数据清洗后特征之间的相关关系" /><figcaption aria-hidden="true">数据清洗后特征之间的相关关系</figcaption>
