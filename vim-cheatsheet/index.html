@@ -221,7 +221,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.3k 字
+          1.4k 字
         
       </span>
     
@@ -293,7 +293,7 @@
 <h4 id="插入文本">1 插入文本</h4>
 <p>按下<code>i</code>进入Insert模式，在光标处插入文本。可利用树表/方向键移动光标</p>
 <h4 id="执行命令">2 执行命令</h4>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs cli">:q # 退出当前窗口<br>:w # 保存<br>:wq # 保存并退出<br>:e &lt;filename&gt; # 打开名为filename的文件<br>:ls # 显示在vim中打开的文件<br>:help &lt;command&gt; # 显示命令command的帮助文档<br></code></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs cli">:q # 退出当前窗口<br>:w # 保存<br>:wq # 保存并退出。即使文件没有被修改也强制写入，并更新文件的修改时间。<br>:x # 写入文件并推出。仅当文件被修改时才写入，并更新文件修改时间。<br>:e &lt;filename&gt; # 打开名为filename的文件<br>:ls # 显示在vim中打开的文件<br>:help &lt;command&gt; # 显示命令command的帮助文档<br></code></pre></td></tr></table></figure>
 <h4 id="移动光标">3 移动光标</h4>
 <ul>
 <li>基本：<code>hjkl</code> 左，下，上，有</li>
