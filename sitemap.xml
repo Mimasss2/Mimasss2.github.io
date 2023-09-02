@@ -119,7 +119,7 @@
 
   
   <url>
-    <loc>https://mimas.top/tags/NLP/</loc>
+    <loc>https://mimas.top/tags/Compiler/</loc>
     <lastmod>2023-09-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -133,28 +133,7 @@
   </url>
   
   <url>
-    <loc>https://mimas.top/tags/Compiler/</loc>
-    <lastmod>2023-09-02</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://mimas.top/tags/oj/</loc>
-    <lastmod>2023-09-02</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://mimas.top/tags/git/</loc>
-    <lastmod>2023-09-02</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://mimas.top/tags/vim/</loc>
     <lastmod>2023-09-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -168,7 +147,28 @@
   </url>
   
   <url>
+    <loc>https://mimas.top/tags/NLP/</loc>
+    <lastmod>2023-09-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://mimas.top/tags/git/</loc>
+    <lastmod>2023-09-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://mimas.top/tags/NSCSCC/</loc>
+    <lastmod>2023-09-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://mimas.top/tags/vim/</loc>
     <lastmod>2023-09-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -177,14 +177,14 @@
 
   
   <url>
-    <loc>https://mimas.top/categories/Machine-Learning/</loc>
+    <loc>https://mimas.top/categories/Projects/</loc>
     <lastmod>2023-09-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://mimas.top/categories/Projects/</loc>
+    <loc>https://mimas.top/categories/Machine-Learning/</loc>
     <lastmod>2023-09-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
