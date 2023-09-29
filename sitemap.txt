@@ -17,12 +17,12 @@ https://mimas.top/tags/NLP-Gumbel-Softmax/
 https://mimas.top/tags/Compiler/
 https://mimas.top/tags/oj/
 https://mimas.top/tags/NLP/
-https://mimas.top/tags/git/
 https://mimas.top/tags/OS/
 https://mimas.top/tags/vim/
+https://mimas.top/tags/git/
 https://mimas.top/tags/NSCSCC/
 https://mimas.top/categories/Machine-Learning/
 https://mimas.top/categories/Projects/
-https://mimas.top/categories/Miscellaneous/
 https://mimas.top/categories/Machine-Learning/NLP/
+https://mimas.top/categories/Miscellaneous/
 https://mimas.top/categories/Cheatsheet/
