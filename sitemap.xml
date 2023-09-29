@@ -2,18 +2,36 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://mimas.top/git_cheatsheet/</loc>
+    <loc>https://mimas.top/about/index.html</loc>
     
-    <lastmod>2023-09-02</lastmod>
+    <lastmod>2023-09-29</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://mimas.top/about/index.html</loc>
+    <loc>https://mimas.top/Application-Memoir/</loc>
     
-    <lastmod>2023-05-07</lastmod>
+    <lastmod>2023-09-29</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://mimas.top/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</loc>
+    
+    <lastmod>2023-09-12</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://mimas.top/git_cheatsheet/</loc>
+    
+    <lastmod>2023-09-02</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -112,64 +130,64 @@
 
   <url>
     <loc>https://mimas.top/</loc>
-    <lastmod>2023-09-02</lastmod>
+    <lastmod>2023-09-29</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
 
   
   <url>
-    <loc>https://mimas.top/tags/Compiler/</loc>
-    <lastmod>2023-09-02</lastmod>
+    <loc>https://mimas.top/tags/NLP-Gumbel-Softmax/</loc>
+    <lastmod>2023-09-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://mimas.top/tags/NLP-Gumbel-Softmax/</loc>
-    <lastmod>2023-09-02</lastmod>
+    <loc>https://mimas.top/tags/Compiler/</loc>
+    <lastmod>2023-09-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://mimas.top/tags/oj/</loc>
-    <lastmod>2023-09-02</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://mimas.top/tags/OS/</loc>
-    <lastmod>2023-09-02</lastmod>
+    <lastmod>2023-09-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://mimas.top/tags/NLP/</loc>
-    <lastmod>2023-09-02</lastmod>
+    <lastmod>2023-09-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://mimas.top/tags/git/</loc>
-    <lastmod>2023-09-02</lastmod>
+    <lastmod>2023-09-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://mimas.top/tags/NSCSCC/</loc>
-    <lastmod>2023-09-02</lastmod>
+    <loc>https://mimas.top/tags/OS/</loc>
+    <lastmod>2023-09-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://mimas.top/tags/vim/</loc>
-    <lastmod>2023-09-02</lastmod>
+    <lastmod>2023-09-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://mimas.top/tags/NSCSCC/</loc>
+    <lastmod>2023-09-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
@@ -177,29 +195,36 @@
 
   
   <url>
-    <loc>https://mimas.top/categories/Projects/</loc>
-    <lastmod>2023-09-02</lastmod>
+    <loc>https://mimas.top/categories/Machine-Learning/</loc>
+    <lastmod>2023-09-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://mimas.top/categories/Machine-Learning/</loc>
-    <lastmod>2023-09-02</lastmod>
+    <loc>https://mimas.top/categories/Projects/</loc>
+    <lastmod>2023-09-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://mimas.top/categories/Miscellaneous/</loc>
+    <lastmod>2023-09-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://mimas.top/categories/Machine-Learning/NLP/</loc>
-    <lastmod>2023-09-02</lastmod>
+    <lastmod>2023-09-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://mimas.top/categories/Cheatsheet/</loc>
-    <lastmod>2023-09-02</lastmod>
+    <lastmod>2023-09-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>

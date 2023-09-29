@@ -1,0 +1,817 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/avatar.png">
+  <link rel="icon" href="/img/avatar.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Mimas">
+  <meta name="keywords" content="Mimas, hexo">
+  
+    <meta name="description" content="1 数据库系统的基本概念 数据库系统的组成  数据库DB：相互之间有关联关系的Table（表&#x2F;关系）的集合 数据库管理系统DBMS：管理数据库的一种软件 数据库应用DBAP 数据库管理员DBA 计算机基本系统  DBMS的功能  数据定义语言DDL，建立表的格式 数据操纵语言DML：增删改查 数据控制语言DCL：实施控制、约束 维护  后台程序  语言翻译器（编">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据库系统学习笔记">
+<meta property="og:url" content="https://mimas.top/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="Mimas&#39;s Blog">
+<meta property="og:description" content="1 数据库系统的基本概念 数据库系统的组成  数据库DB：相互之间有关联关系的Table（表&#x2F;关系）的集合 数据库管理系统DBMS：管理数据库的一种软件 数据库应用DBAP 数据库管理员DBA 计算机基本系统  DBMS的功能  数据定义语言DDL，建立表的格式 数据操纵语言DML：增删改查 数据控制语言DCL：实施控制、约束 维护  后台程序  语言翻译器（编">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://mimas.top/img/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/banner.jpg">
+<meta property="article:published_time" content="2023-09-12T03:13:03.000Z">
+<meta property="article:modified_time" content="2023-09-12T03:13:03.000Z">
+<meta property="article:author" content="Mimas">
+<meta property="article:tag" content="Mimas, hexo">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://mimas.top/img/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/banner.jpg">
+  
+  
+  
+  <title>数据库系统学习笔记 - Mimas&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"mimas.top","root":"/","version":"1.9.3","typing":{"enable":false,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Mimas&#39;s Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/banner.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle">数据库系统学习笔记</span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-09-12 11:13" pubdate>
+          2023年9月12日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          7.4k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          62 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">数据库系统学习笔记</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="数据库系统的基本概念">1 数据库系统的基本概念</h2>
+<h5 id="数据库系统的组成">数据库系统的组成</h5>
+<ul>
+<li>数据库DB：相互之间有关联关系的Table（表/关系）的集合</li>
+<li>数据库管理系统DBMS：管理数据库的一种<strong>软件</strong></li>
+<li>数据库应用DBAP</li>
+<li>数据库管理员DBA</li>
+<li>计算机基本系统</li>
+</ul>
+<h5 id="dbms的功能">DBMS的功能</h5>
+<ul>
+<li>数据定义语言DDL，建立表的格式</li>
+<li>数据操纵语言DML：增删改查</li>
+<li>数据控制语言DCL：实施控制、约束</li>
+<li>维护</li>
+</ul>
+<p>后台程序</p>
+<ul>
+<li>语言翻译器（编译器）：数据库语言 -&gt; DBMS可执行的命令</li>
+<li>查询优化与查询实现（执行引擎）：提高数据库检索速度</li>
+<li>数据存取：提供数据在磁盘、磁带等上的高效存取手段</li>
+<li>通信控制：提供网络环境下数据库操作的手段</li>
+</ul>
+<h5 id="dbms管理数据的三个层次">DBMS管理数据的三个层次</h5>
+<p>外部视图 -- 全局视图 -- 内部视图</p>
+<h5 id="三个模式----数据的抽象">三个模式 -- 数据的抽象</h5>
+<p>外模式（用户) -- 概念模式（逻辑） -- 内模式（物理)</p>
+<p><strong>模式</strong>：对数据库中数据所进行的一种结构性的描述</p>
+<p>Table name {col name1 type, col name2 type,….}</p>
+<h5 id="两层映像">两层映像</h5>
+<p>E-C Mapping：将外模式映射为概念模式</p>
+<p>C-I Mapping：将概念模式映射为内模式</p>
+<h5 id="两个独立性">两个独立性</h5>
+<p><strong>逻辑数据独立性</strong>：概念模式变化时，不需修改外模式，修改E-C Mapping即可</p>
+<p><strong>物理数据独立性</strong>：内部模式变化时，不需修改概念模式，修改C-I Mapping 即可</p>
+<h5 id="数据模型-模式的抽象">数据模型 – 模式的抽象</h5>
+<p>规定模型统一描述方式的模型。数据模型是对模型本身结构的抽象，模式是对数据本身结构形式的抽象。</p>
+<ul>
+<li>数据的基本结构形式</li>
+<li>数据操作（关系运算）</li>
+<li>约束条件（完整性约束)</li>
+</ul>
+<h4 id="三大经典数据模型">三大经典数据模型</h4>
+<ul>
+<li>关系模型：表</li>
+</ul>
+<p>​ 结构简单，支持非过程化的数据操作，支持记录集合的操作。</p>
+<ul>
+<li><p>层次模型：树</p>
+<p>查询效率高，但现实世界中很多联系是非层次性的。</p></li>
+<li><p>网状模型：图</p>
+<p>结构复杂，管理复杂。</p></li>
+</ul>
+<h4 id="发展史">发展史</h4>
+<ol type="1">
+<li>数据库技术探索阶段</li>
+<li>数据库技术确立阶段：三大模型相继提出，商用多为网状/层次</li>
+<li>数据库技术成熟阶段：标准化数据库系统结构模型</li>
+<li>数据库技术神话发展阶段： 完善，新模型涌现</li>
+</ol>
+<h2 id="关系模型与关系运算">2 关系模型与关系运算</h2>
+<p>关系（relation）就是一个table，包括：</p>
+<ul>
+<li>数据的基本结构形式</li>
+<li>关系运算（表之间发生的各种操作）</li>
+<li>约束条件（完整性条件）</li>
+</ul>
+<p>关系运算 = 关系代数（基于集合） + 关系演算（基于元组/域）</p>
+<p>关系演算 = 元组演算 + 域演算</p>
+<h5 id="域列的取值范围">域：列的取值范围</h5>
+<p>一组值的集合，具有相同的数据类型</p>
+<h5 id="笛卡尔积所有域的可能组合的集合">笛卡尔积：所有域的可能组合的集合</h5>
+<h5 id="关系一组域的笛卡尔积的子集">关系：一组域的笛卡尔积的子集</h5>
+<p><span class="math inline">\(R(A_1:D_1, A_2:D_2, ..., A_n:D_n)\)</span>，关系模式/表标题</p>
+<p>R是关系的名字，<span class="math inline">\(A_i\)</span>是属性，<span class="math inline">\(D_i\)</span>是属性所对应的域，n是关系的度/目。</p>
+<p><strong>关系模式是关系的结构，关系是关系模式在某一时刻的数据</strong></p>
+<p>属性不可再分特性，又被称为关系第一范式。</p>
+<h5 id="候选码候选键">候选码/候选键</h5>
+<p>关系中的一个属性组，其值能唯一标识一个元组，若从该属性组中去掉任何一个属性，它就不具有这一性质了，这样的属性称作候选码。</p>
+<p><strong>主码/主键</strong>：当有多个候选码时，可以选定一个作为主码。</p>
+<p><strong>主属性</strong>：包含在任何一个候选码中的属性被称作主属性。</p>
+<p><strong>外码/外键：</strong>不是关系R的候选码，但它与另一个关系S的候选码相对应，则称这个属性组为R的外码或外键。</p>
+<p><strong>超码：</strong> 一个或多个属性的集合，这些属性的组合可以使我们在一个实体集中唯一的标识一个实体。</p>
+<h4 id="完整性约束">完整性约束</h4>
+<p><strong>实体完整性：</strong>关系中的主码的属性值不能为空值。</p>
+<p><strong>参照完整性：</strong>如果关系R1的外码与关系R2的主码Pk相对应，则R1中的每一个元组的Fk值或者等于R2中某个元组的Pk值，或者为空值。</p>
+<p><strong>用户自定义完整性</strong>：用户对具体的应用环境定义的完整性约束条件。</p>
+<h4 id="关系代数运算">关系代数运算</h4>
+<p>集合操作：并、交、差、笛卡尔积</p>
+<p>纯关系操作：投影<span class="math inline">\(\Pi\)</span>、选择<span class="math inline">\(\sigma\)</span>、连接<span class="math inline">\(\times\)</span>、除，$- <span class="math inline">\(连接，\)</span>_{R_1}(R)$ 重命名，自然连接，外连接</p>
+<p><strong>并相容性</strong>：参与运算的两个关系及其相关属性之间有一定的对应性。（属性数目相同&amp;对应属性的域相同）</p>
+<p><strong>运算符计算的优先顺序（从高到低）</strong>：<span class="math inline">\(\theta\)</span>(比较运算符)， <span class="math inline">\(\neg\)</span>, <span class="math inline">\(\and\)</span>, <span class="math inline">\(\or\)</span></p>
+<p>如果投影后有重复元组，则应去掉。</p>
+<h5 id="除法">除法</h5>
+<p><span class="math inline">\(R \div S = T,\quad T = Max(T&#39;: S\times T \subseteq R)\)</span></p>
+<p><span class="math inline">\(R \div S = \Pi_{R-S}R - \Pi_{R-S}((\Pi_{R-S}(R) \times S) - \Pi_{R-S,S}R)\)</span></p>
+<h5 id="外联结">外联结</h5>
+<p>为了避免元组信息丢失，将该元组与S中假定存在的全为空值的元组形成连接，放置在结果关系中。</p>
+<p>-- 左外连接， 右外连接，全外连接</p>
+<p>*那边做外连接，就在哪边的笛卡尔积符号旁延申两道横线</p>
+<h2 id="sql语言">3 SQL语言</h2>
+<p>集DDL，DML，DCL于一体的数据库语言</p>
+<ul>
+<li>DDL: Create, Alter, Drop – DB, Table, View, Index,…及其约束条件</li>
+<li>DML: Insert, Update, Delete, Select</li>
+<li>DCL: Grant, Revoke</li>
+</ul>
+<h4 id="ddl">DDL</h4>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs mysql">create database &lt;name&gt;;<br>create table &lt;tablename&gt;(列名 数据类型 [Primary key | UNIQUE][not null][, 列名...])<br>Create TableStudent ( S# char(8) not null , Snamechar(10), Ssex char(2), Sage integer, D# char(2), Sclass char(6));<br></code></pre></td></tr></table></figure>
+<p>数据类型：</p>
+<ul>
+<li>Char (n):固定长度的字符串</li>
+<li>Varchar (n):可变长字符串</li>
+<li>int:整数 //有时不同系统也写作integer</li>
+<li>Numeric (p，q):固定精度数字，小数点左边p位，右边p-q位</li>
+<li>real:浮点精度数字 //有时不同系统也写作float(n)，小数点后保留n位</li>
+<li>Date :日期(2003-09-12)</li>
+<li>time: 时间(23:15:003)</li>
+</ul>
+<h4 id="dml">DML</h4>
+<p>*不等号：&lt;&gt;</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs mysql">insert into 表名[ (列名[, 列名]…] values(值[, 值] , …);<br>Insert Into Student ( S#, Sname, Ssex, Sage, D# , Sclass) Values ( ‘98030102’ , ‘张四’, ‘女’, 20，’03’，‘980301’);<br>                     <br># 批量新增<br>insert into 表名[(列名[，列名]…)]<br>子查询;                     <br>                   <br>Select colname,..<br>From tablename<br>[Where cond] ;               <br>Select Tname<br>From Teacher<br>Where (Salary &lt; 1500 or Salary &gt; 2000) and D# =’03’;                  <br></code></pre></td></tr></table></figure>
+<p>过滤重复元组</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mysql">select distict S# ...<br></code></pre></td></tr></table></figure>
+<p>顺序 order by <colname> [asc|dsc]</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs mysql">Select S# <br>From SC <br>Where C# = ‘002’ and Score&gt;80 <br>Order ByScore DESC;<br></code></pre></td></tr></table></figure>
+<p>模糊查询：<colname> [not] like 字符串</p>
+<ul>
+<li>“%” 匹配零个或多个字符匹配任意单个字符</li>
+<li>“_”匹配任意单个字符</li>
+<li>“” 转义字符，用于去掉一些特殊字符的特定含义，使其被作为普 通字符看待, 如用“%”去匹配字符%，用_去匹配字符_</li>
+</ul>
+<p>多表联合</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs mysql">Select 列名 as 列别名 [[,列名as列别名]…] <br>From 表名1 as 表别名1, 表名2 as 表别名2,… <br>Where检索条件;<br></code></pre></td></tr></table></figure>
+<p>删除</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">delete</span> <span class="hljs-keyword">from</span> <span class="hljs-operator">&lt;</span>tablename<span class="hljs-operator">&gt;</span> [<span class="hljs-keyword">Where</span> <span class="hljs-operator">&lt;</span>cond<span class="hljs-operator">&gt;</span>];<br><span class="hljs-keyword">Delete</span> <span class="hljs-keyword">From</span> Student <span class="hljs-keyword">Where</span> D# <span class="hljs-keyword">in</span><br>(<span class="hljs-keyword">Select</span> D# <span class="hljs-keyword">From</span> Dept <span class="hljs-keyword">Where</span> Dname <span class="hljs-operator">=</span>‘自动控制’);<br></code></pre></td></tr></table></figure>
+<p>更新update</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs mysql">Update 表名<br>Set 列名= 表达式|(子查询) [[ ,列名= 表达式|(子查询) ]…] <br>[ Where条件表达式];<br><br>Update Teacher<br>Set Salary = Salary *1.1<br>Where D# in (Select D# From Dept Where Dname =‘计算机’);<br><br>// 将张三同学001号课的成绩置为其班级该门课的平均成绩<br>Update SC<br>Set Score = (SelectAVG(SC2.Score)<br>From SC SC1, Student S1, SC SC2, StudentS2 Where S1.Sclass = S2.Sclass and SC1.S# =S1.S#<br>and SC2.S# = S2.S# and S1.Sname=‘张三’ and SC2.C# = ‘001’ and SC1.C# = SC2.C#)<br>Where C# = ‘001’and S# in( Select S# From Student Where Sname = ‘张三’ );<br></code></pre></td></tr></table></figure>
+<p>撤销表</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mysql">drop table &lt;tablename&gt;;<br></code></pre></td></tr></table></figure>
+<p>修正表</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs mysql">alter table tablename<br>[add&#123;colname datatype,…&#125;] 增加新列<br>[drop&#123;完整性约束名&#125;] 删除完整性约束<br>[modify&#123;colname datatype,…&#125;] 修改列定义<br><br>//删除学生姓名的唯一性约束<br>Alter TableStudent Drop Unique( Sname);<br></code></pre></td></tr></table></figure>
+<p>数据库</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs mysql">drop database &lt;database name&gt;; \\撤销<br>use &lt;database name&gt;; \\指定<br>close &lt;database name&gt;; \\关闭当前数据库<br></code></pre></td></tr></table></figure>
+<h4 id="子查询">子查询</h4>
+<p><strong>非相关子查询：</strong>内层查询独立进行，没有涉及外层查询相关信息的子查询</p>
+<p><strong>相关子查询：</strong>外层向内层传递的参量（需要使用外层的表名/表别名来限定）</p>
+<h5 id="谓词">谓词</h5>
+<p><span class="math inline">\(\theta \ some\)</span>表达式的值至少与子查询结果的某一个值相比较满足关系</p>
+<p><span class="math inline">\(\theta \ all\)</span> 表达式的值与子查询结果的所有值都满足关系。</p>
+<p>not in 等价于 &lt;&gt; all</p>
+<p>[not] Exists 子查询</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs mysql">Select DISTINCT Sname From Student<br>Where exists(Select * From SC, Course,Teacher<br>Where SC.C# =Course.C# and SC.S#= Student.S# and Course.T#=Teacher.T# and Tname =‘赵三’);<br><br>//检索学过001号教师主讲的所有课程的所有同学的姓名<br>Select Sname From Student<br>Where not exists<br>    (Select * FromCourse<br>    	Where Course.T#=‘001’ and not exists<br>        ( Select * FromSC<br>        Where S# = Student.S# and C# = Course.C# ));<br>         <br>//列出没学过李明老师讲授任何一门课程的所有同学的姓名 <br>Select Sname From Student<br>Where not exists  //不存在<br>(Select*FromCourse, SC,Teacher  //学过一门课程<br>Where Tname=‘李明’ and Course.T# =Teacher.T# and Course.C# = SC.C# and S# = Student.S#);<br></code></pre></td></tr></table></figure>
+<p>select 计算表达式，可以是常量/列名/特殊函数/聚集函数等</p>
+<p>聚集函数：count, sum, avg, max, min</p>
+<h5 id="分组查询过滤">分组查询/过滤</h5>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs mysql">Select列名| expr|agfunc(列名)[[, 列名| expr | agfunc(列名) ] …]<br>From表名1 [, 表名2…] <br>[ Where检索条件]<br>[Groupby分组条件 [ Having分组过滤条件]];<br></code></pre></td></tr></table></figure>
+<p>having子句，实现分组过滤（以组为单位，而where是以记录为单位）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs mysql">// 求有两门以上不及格课程的同学的学号及其平均成绩<br>SelectS#, AVG(Score)FromSC Where S#in<br>	(SelectS# From SC Where Score &lt;60<br>		Group by S# Having Count(*)&gt;2)<br>Group by S#;<br></code></pre></td></tr></table></figure>
+<h5 id="并交差">并、交、差</h5>
+<p>*union *, *intersect*,* except *</p>
+<h5 id="空值处理">空值处理</h5>
+<p>is [not] null</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs mysql">Select Sname From Student <br>Where Sage is null;<br></code></pre></td></tr></table></figure>
+<ul>
+<li>除is [not]null之外，空值不满足任何查找条件</li>
+<li>如果null参与算术运算，则该算术表达式的值为null</li>
+<li>如果null参与比较运算，则结果可视为false。在SQL-92中可看成unknown</li>
+<li>如果null参与聚集运算，则除count(*)之外其它聚集函数都<strong>忽略null</strong></li>
+</ul>
+<h5 id="内连接外连接">内连接/外连接</h5>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs mysql">Select列名[ [, 列名] …]<br>From 表名1[NATURAL]<br>		[ INNER | &#123; LEFT | RIGHT | FULL&#125; [OUTER]] JOIN 表名2<br>		&#123;ON 连接条件 |Using(Colname &#123;, Colname…&#125;)&#125; <br>[ Where检索条件] …;<br></code></pre></td></tr></table></figure>
+<p>如“表1 Left Outer Join 表2”，则连接后，表1的任何元组t都会出现在结果表中，如表2中有满足连接条件的元组s, 则t与s连接；否则t与空值元组连接；</p>
+<ul>
+<li>连接中使用natural：出现在结果关系中的两个连接关系的元组在公共属性上取值相等，且公共属性只出现一次</li>
+<li>连接中使用on<连接条件>：出现在结果关系中的两个连接关系的元组取值满足连接条件，且公共属性出现两次</li>
+<li>连接中使用using (Col1, Col2, ...,Coln)：(Col1, Col2, ..., Coln)是两个连接关系的公共属性的子集，元组在(Col1, Col2, ..., Coln)上取值相等，且(Col1, Col2, ...,Coln)只出现一次</li>
+</ul>
+<h5 id="视图">视图</h5>
+<p>对应概念模式的数据称为基本表table，对应外模式的数据称为视图</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs mysql">create view view_name[(列名[，列名]…)]<br>as 子查询 [with check option]<br><br>Create View Teach AS<br>( Select T.Tname,C.Cname,Credit From Teacher T, Course C<br>Where T.T# = C.T# );<br>Create View StudStat (S#, Sname, AvgS, MinS, MaxS,CNT)<br>as (Select S#, Sname, AVG(Score), MIN(Score),Max(Score),Count(*) From Student S, SC Where S.S# =SC.S#<br>Group by S.S# );<br></code></pre></td></tr></table></figure>
+<p>with check option指明当对视图进行insert，update，delete时，要检查进行insert/update/delete的元组是否满足视图定义中子查询中定义的条件表达式</p>
+<p><strong>不能进行视图更新的条件：</strong></p>
+<ul>
+<li>如果视图的select目标列包含聚集函数，则不能更新</li>
+<li>如果视图的select子句使用了unique或distinct，则不能更新</li>
+<li>如果视图中包括了groupby子句，则不能更新</li>
+<li>如果视图中包括经算术表达式计算出来的列，则不能更新</li>
+<li>如果视图是由单个表的列构成，<strong>但并没有包括主键</strong>，则不能更新</li>
+</ul>
+<p>若可以进行插入操作，则原表中没有和视图对应的属性（插入时没有指定的属性）值默认为null</p>
+<h2 id="数据库完整性和安全性控制">4 数据库完整性和安全性控制</h2>
+<p><strong>数据库完整性是指</strong>：DBMS应保证DB在任何情况下的<strong>正确性、有效性、一致性</strong></p>
+<ul>
+<li>广义：语义完整性、并发控制、安全控制、DB故障恢复</li>
+<li>狭义：语义完整性</li>
+</ul>
+<p><strong>关系模型的完整性</strong>：实体完整性、参照完整性、用户自定义完整性</p>
+<p>完整性约束条件的一般形式：</p>
+<p>Integrity Constraint ::= ( O，P，A，R)</p>
+<ul>
+<li>O―数据集合：约束的对象？列、多列(元组)、元组集合</li>
+<li>P―谓词条件：什么样的约束？</li>
+<li>A―触发条件：什么时候检查？</li>
+<li>R―响应动作：不满足时怎么办？</li>
+</ul>
+<h5 id="分类">分类</h5>
+<ul>
+<li>静态约束
+<ul>
+<li>域完整性约束</li>
+<li>关系完整性约束</li>
+</ul></li>
+<li>动态约束：触发器</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs mysql">CREATE TABLE tablename<br>    ( ( colname datatype [ DEFAULT &#123; default_constant | NULL&#125; ]<br>    		[ col_constr &#123;col_constr. . .&#125; ]<br>    	| , table_constr<br>    &#123;, &#123; colname datatype [DEFAULT &#123; default_constant | NULL&#125; ]<br>    		[col_constr &#123;col_constr. . .&#125; ]<br>    	| , table_constr &#125;<br>    . . . &#125; );<br>     <br>// 列约束/域约束<br>&#123; NOT NULL | //列值非空<br>[ CONSTRAINT constraintname ] //为约束命名，便于以后撤消<br>&#123; UNIQUE //列值是唯一<br>| PRIMARY KEY //列为主键<br>| CHECK (search_cond) //列值满足条件,条件只能使用列当前值<br>| REFERENCES tablename [(colname) ]<br>[ON DELETE CASCADE] &#125; &#125;<br>//引用另一表tablename的列colname的值，如有ON DELETE CASCADE 或ON DELETE SET NULL，则删除被引用表的某列值v 时，要将本表的该列值为v 的列值更新为null; 缺省为无操作。<br>     <br>Create Table Student ( S# char(8) not null unique, Sname char(10),<br>					Ssex char(2) constraint ctssex check (Ssex=‘男’ or Ssex=‘女’), <br>                      Sage integer check (Sage&gt;=1 and Sage&lt;150),<br>					D# char(2) references Dept(D#) on delete cascade,<br>					Sclass char(6) );<br>Create Table Course ( C# char(3) , Cname char(12), Chours integer,<br>			Credit float(1) constraint ctcredit check (Credit &gt;=0.0 and Credit&lt;=5.0 ), 				T# char(3) references Teacher(T#) on delete<br>cascade );<br></code></pre></td></tr></table></figure>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>数据库系统学习笔记</div>
+      <div>https://mimas.top/数据库系统学习笔记/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Mimas</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年9月12日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/Application-Memoir/" title="Application Memoir">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Application Memoir</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/NLP%E5%8F%AF%E6%8E%A7%E6%96%87%E6%9C%AC%E7%94%9F%E6%88%90%E8%AF%84%E4%BB%B7%E6%8C%87%E6%A0%87/" title="NLP可控文本生成评价指标">
+                        <span class="hidden-mobile">NLP可控文本生成评价指标</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

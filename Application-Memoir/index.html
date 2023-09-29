@@ -1,0 +1,781 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/avatar.png">
+  <link rel="icon" href="/img/avatar.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Mimas">
+  <meta name="keywords" content="Mimas, hexo">
+  
+    <meta name="description" content="这是一篇关于2023年CS推免的回忆录。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Application Memoir">
+<meta property="og:url" content="https://mimas.top/Application-Memoir/index.html">
+<meta property="og:site_name" content="Mimas&#39;s Blog">
+<meta property="og:description" content="这是一篇关于2023年CS推免的回忆录。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://mimas.top/img/Application-Memoir/banner.jpg">
+<meta property="article:published_time" content="2023-09-29T11:51:01.000Z">
+<meta property="article:modified_time" content="2023-09-29T11:51:01.000Z">
+<meta property="article:author" content="Mimas">
+<meta property="article:tag" content="Mimas, hexo">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://mimas.top/img/Application-Memoir/banner.jpg">
+  
+  
+  
+  <title>Application Memoir - Mimas&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"mimas.top","root":"/","version":"1.9.3","typing":{"enable":false,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Mimas&#39;s Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/Application-Memoir/banner.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle">Application Memoir</span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-09-29 19:51" pubdate>
+          2023年9月29日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          3.2k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          27 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Application Memoir</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>这是一篇关于2023年CS推免的回忆录。</p>
+<span id="more"></span>
+<p>常见的简称/术语可参考<a target="_blank" rel="noopener" href="https://sumsky.top/2021/10/13/baoyan-series-1/">关于保研的ABC（1）一些常识与概念</a></p>
+<h3 id="个人情况">1 个人情况</h3>
+<ul>
+<li>本科学校：985计算机专业</li>
+<li>排名：top 1%</li>
+<li>荣誉奖项：国家奖学金、企业奖学金</li>
+<li>竞赛奖项：龙芯杯国二</li>
+<li>科研经历：1段NLP相关经历，论文在投</li>
+<li>最终去向：人大高瓴学硕</li>
+</ul>
+<h3 id="目标定位">2 目标定位</h3>
+<ul>
+<li>院校：清北本摇彩票，主要人大、上交、浙大</li>
+<li>方向：可信ai</li>
+<li>层次：学硕/专硕</li>
+<li>导师：（考虑优先级从高到低）人品/行事风格 - 方向 - 学术水平 - 其他</li>
+</ul>
+<h3 id="参营情况">3 参营情况</h3>
+<table>
+<thead>
+<tr class="header">
+<th>学校</th>
+<th>院系</th>
+<th>层次</th>
+<th>入营</th>
+<th>时间</th>
+<th>结果</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>清华</td>
+<td>叉院</td>
+<td>直硕</td>
+<td>否</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr class="even">
+<td>北大</td>
+<td>智能学院</td>
+<td>直硕</td>
+<td>否</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr class="odd">
+<td>人大</td>
+<td>高瓴</td>
+<td>学硕</td>
+<td>是</td>
+<td>7.9-7.12</td>
+<td>学硕优营</td>
+</tr>
+<tr class="even">
+<td>上交</td>
+<td>电院计算机系</td>
+<td>直硕</td>
+<td>是</td>
+<td>7.4-7.6</td>
+<td>学硕优营，放弃</td>
+</tr>
+<tr class="odd">
+<td>复旦</td>
+<td>计算机学院</td>
+<td>学硕</td>
+<td>否</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr class="even">
+<td>清华</td>
+<td>深研院大数据</td>
+<td>专硕</td>
+<td>是</td>
+<td>7.5-7.6</td>
+<td>和上交时间冲突，放弃</td>
+</tr>
+<tr class="odd">
+<td>南大</td>
+<td>计算机系</td>
+<td>直硕</td>
+<td>是</td>
+<td>7.17-7.19</td>
+<td>学硕优营，放弃</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>直硕就是学硕+专硕，报名阶段不区分学硕专硕，考核结果出来后根据排名和意向发放学硕/专硕的offer</p>
+</blockquote>
+<h3 id="timeline">4 Timeline</h3>
+<ul>
+<li>3月前：
+<ul>
+<li>准备好简历</li>
+<li>积攒科研经历</li>
+<li>开始专业知识复习</li>
+</ul></li>
+<li>3月-6月：
+<ul>
+<li>联系导师</li>
+<li>复习专业知识</li>
+<li>刷leetcode准备机试</li>
+</ul></li>
+<li>6月：夏令营填报系统，准备面试</li>
+<li>7月：参加夏令营</li>
+</ul>
+<h3 id="联系导师">5 联系导师</h3>
+<h4 id="在哪里找导师信息">在哪里找导师信息</h4>
+<ol type="1">
+<li>学院官网的个人主页</li>
+<li>google scholar</li>
+<li>部分学校会在招生通知里整理出招生的老师信息</li>
+<li>研控等非官方渠道</li>
+</ol>
+<h4 id="从哪些维度判断老师适不适合自己">从哪些维度判断老师适不适合自己</h4>
+<p>一般老师的主页公开的信息可能包括：</p>
+<p><strong>教育/工作经历</strong>：可以看老师的学习历程，导师等</p>
+<p><strong>研究方向</strong>：最直接判断和自己的研究方向是不是match</p>
+<p><strong>发表论文</strong>：</p>
+<ul>
+<li>可以根据论文发表的会议/期刊大致判断老师的科研品味</li>
+<li>计算每年课题组平均每个学生发多少篇文章来判断课题组大致情况</li>
+<li>看论文里的作者，可以了解导师在学术界/工业界的一部分connection</li>
+</ul>
+<p><strong>指导过的学生</strong>：</p>
+<ul>
+<li>比较直观地反映学生培养状况/导师connection的一个维度，大概可以判断自己毕业时的下限。</li>
+<li>注意区分不同时期的信息。比如22/23年毕业的数据普遍没有前几年好，当然如果这个老师的学生在这种时期都有比较好的去向，说明组里的学生在就业时是很有竞争力的</li>
+<li>还可以关注下每个学生的毕业时间（主要是博士），判断之后延毕（如果是直博的话）的风险</li>
+</ul>
+<p><strong>国家/企业项目</strong>:</p>
+<ul>
+<li>可以反应课题组的经费情况，间接反映算力资源之类的情况</li>
+<li>对于企业项目，如果横向较多可能去了的话需要分配一定的时间做横向（具体的工作量可以找组里同学问问）。如果是科研导向的项目，有点类似科研导向的实习，在产出论文的同时积累一段实习经历，而且之后被这个公司录用的可能性相对而言也会高一些，个人觉得还是不错的。</li>
+</ul>
+<p><strong>招生信息</strong>：包括老师今年招生的硕博名额，对申请的学生的要求（比如要求发成绩单，或者提前进组实习）</p>
+<p>从其他渠道了解的信息：</p>
+<p><strong>citation, h-index(google scholar)</strong>: 这个要理性看待，不同领域差别很大（比如一般认为cv的除以2再和nlp的比）。不同年龄的老师也不一样，水平差不多的老师，可能年纪稍微大些的老师数字会高些（毕竟论文、引用量只增不减）。还有些课题组好几位老师的，可能发表的每篇文章都挂这几位老师的名字，实际上平均到每个老师自己学生做的，也要按老师数目平均下。</p>
+<p><strong>过往学生评价</strong>：很多网站上这类评价大多是匿名的，仅供参考。一般年轻老师很可能搜不到（还没带几届学生呢），尽量避开一些差评很多的老师，这种多少可能有点问题风险比较大。</p>
+<p><strong>组内学生</strong>：这个是最直接的方式，可以直接和组内同学沟通，问些自己比较关心的问题。可能联系上比较麻烦，需要找认识的同学帮忙引荐下。当然有些学校也会在夏令营期间专门组织活动，帮助大家直接和组内同学沟通了解情况（比如高瓴）。由于这些学长学姐/师兄师姐还属于在读期间，可能不会特别直接地告诉你组里的一些缺点，可以通过问一些比较细节的问题自己推断下。</p>
+<p><strong>导师推荐</strong>：学术圈挺小的，一个方向内的老师多多少少都认识，可以直接拜托自己的导师推荐不错的老师，大概率是学术水平较高且人品不错的老师。甚至如果你实力很强，老师可能愿意直接向那位老师推荐你。这个渠道的缺点就是可能会遗漏一些导师不熟的老师，以及如果导师将你推荐到外校老师，之后当鸽子影响很不好。</p>
+<h4 id="如何联系老师">如何联系老师</h4>
+<p>老师的个人主页一般会写上自己的邮箱。一般通过建议邮件的形式联系老师，简要介绍下自己的基本情况、科研经历、和未来打算做什么（最好和老师的研究方向匹配），并附上自己的简历。不建议同时联系同学校的多个老师，老师们之间都会交流。建议尽早（简历成熟时）开始联系老师，有些热门老师可能非常早就没名额了，组内很多提前进组实习的同学</p>
+<p>心里做好老师大概率不会回复的准备哈哈哈哈哈哈。回复这个挺玄学的，有些大牛老师可能很早就没名额了，或者邮件太多了压根不看。也有些老师可能不会太早开始面试学生，所以太早联系也可能被忽略掉。如果是自己非常感兴趣的老师，可以在不同时间点多联系几次。也有的老师出于学院招生委员会权利较强，自己不能影响入营/优营之类的，回复比较官方。不需要太看重回复率，这个和联系的导师的level有比较强的相关性。</p>
+<h3 id="复习方法">6 复习方法</h3>
+<h4 id="专业知识">专业知识</h4>
+<p>专业知识的复习建议尽早开始，系统性地对学过的知识梳理一遍。千万不要等到快要夏令营了再突击，到时候忙着各种报名、联系老师、出行等事情根本没时间复习。AI方向比较看重数学、算法、机器学习的知识。数学可以针对性地复习些比较相关的内容，比如线性代数、概率论之类的。机器学习推荐李航老师的《机器学习方法》，内容较为全面，也包括了详细的数学推导。别的方向可能更侧重408，可以参考王道考研的教材。</p>
+<h4 id="机试">机试</h4>
+<p>我是跟着<a target="_blank" rel="noopener" href="https://labuladong.gitee.io/algo/home/">labuladong的算法笔记</a>练习的。不算太难，可以跟着系统学习下算法的一些基础思想。如果想冲刺更高难度的题目，清华的机试这类的，可以参考算法竞赛的一些<a target="_blank" rel="noopener" href="https://oi-wiki.org/">教程/文档</a>。在这个基础上，还需要熟悉下Dev C++之类的编程环境，机试可不会像leetcode一样帮你处理好输入输出，告诉你所有的样例。</p>
+<h4 id="面试">面试</h4>
+<p>面试基本都会包括自我介绍的环节，而且很可能是英文的。建议提前准备好中英文自我介绍，可以包括自己的大致情况、科研经历、未来规划，做到能够熟练背诵。其他还可能考察专业知识、科研经历、算法等，建议参考大家经验贴中的内容针对性地准备。</p>
+<h3 id="夏令营内容">7 夏令营内容</h3>
+<h4 id="人大高瓴">人大高瓴</h4>
+<p>主要分为笔试和面试两个环节。笔试主要考察数学、算法、英语翻译。刷刷王道考研数据结构就差不多。CCF CSP 认证300分以上可以加10分，建议有空都去考考。面试主要考察英文问答能力、科研经历、算法、数学。 学校非常贴心提供了校内宿舍，条件一般般，不过暑假北京酒店真的很贵，住学校还是能省不少。开营仪式时各个老师会简短介绍下自己，可以仔细听听了解下。还有一个比较重要的交流环节，会有每个老师的海报和代表学生，有些老师甚至会亲自到场，非常好的了解课题组情况的机会。</p>
+<h4 id="上交电院计算机系">上交电院计算机系</h4>
+<p>上交计算机系的夏令营比较干净利落，只有机试和面试两个环节，没有额外的讲座之类的，时间上灵活很多。而且教务老师非常体谅外校同学，可以自选面试的时间（当时有3天的上下午可选）。会提前线上召开说明会，但是八月底才正式发offer，夏令营结束后可以查询自己的排名推断大概的情况。</p>
+<p>机试比较简单，甚至没有比较极限的测试样例，主要考察算法思维。一共3道题，分别给30min, 30min, 90min。前两道题时间还是很紧张的。硕士的面试也比较轻松，需要英文自我介绍、还有一些简答的题目，挺快的。</p>
+<h4 id="南大计算机系">南大计算机系</h4>
+<p>CS会在线下活动前10天左右组织线上考试进行初筛，难度还挺大的，好多压根没听过的。线下活动也是机试和面试。机试有点难，但好像区分度不高（听打ACM的同学说，对他们而言挺简单，但不打竞赛的可能思路都没有）。面试比较严格，不允许透露个人信息，问了很多专业问题。</p>
+<h3 id="后记">8 后记</h3>
+<p>一路上不时焦虑惆怅也偶尔欣喜万分。非常感谢联系上的老师对我的肯定，也很惭愧纠结许久最终放弃了很多机会。十分感谢指导我的老师们，支持我的亲人，和陪伴我的同学！</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Miscellaneous/" class="category-chain-item">Miscellaneous</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Application Memoir</div>
+      <div>https://mimas.top/Application-Memoir/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Mimas</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年9月29日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="数据库系统学习笔记">
+                        <span class="hidden-mobile">数据库系统学习笔记</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
